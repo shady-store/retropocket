@@ -1,0 +1,18 @@
+network:
+  version: 2
+  renderer: NetworkManager
+  wifis:
+    wlan0:
+      {{#ipaddr}}
+      addresses: [{{ipaddr}}/24]
+      dhcp4: false
+      {{/ipaddr}}
+      {{^ipaddr}}
+      dhcp4: true
+      {{/ipaddr}}
+      dhcp6: false
+      access-points:
+        "{{apname}}":
+          auth:
+            key-management: "psk"
+            password: "{{appassword}}"

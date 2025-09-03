@@ -1,0 +1,71 @@
+<img
+  id="indicator"
+  class="htmx-indicator center"
+  src="/img/puff.svg"
+  width="50"
+/>
+<table>
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Adresse MAC</th>
+      <th>Statut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#devices}}
+    <tr>
+      <td>{{name}}</td>
+      <td>{{mac}}</td>
+      <td>{{status}}</td>
+      <td>
+        <button
+          class="matrix-button {{connect-class}}"
+          hx-put="/bluetooth?mac={{mac}}&action=connect"
+          hx-trigger="click"
+          hx-disable-elt="this"
+          hx-swap="innerHTML"
+          hx-target="closest td"
+          hx-indicator="#indicator"
+        >
+          Connecter
+        </button>
+        <button
+          class="matrix-button {{disconnect-class}}"
+          hx-put="/bluetooth?mac={{mac}}&action=disconnect"
+          hx-trigger="click"
+          hx-disable-elt="this"
+          hx-swap="innerHTML"
+          hx-target="closest td"
+          hx-indicator="#indicator"
+        >
+          Deconnecter
+        </button>
+        <button
+          class="matrix-button {{add-class}}"
+          hx-post="/bluetooth?mac={{mac}}"
+          hx-trigger="click"
+          hx-disable-elt="this"
+          hx-swap="innerHTML"
+          hx-target="closest td"
+          hx-indicator="#indicator"
+        >
+          Ajouter
+        </button>
+        <button
+          class="matrix-button {{delete-class}}"
+          hx-delete="/bluetooth?mac={{mac}}"
+          hx-trigger="click"
+          hx-disable-elt="this"
+          hx-swap="innerHTML"
+          hx-target="closest td"
+          hx-indicator="#indicator"
+        >
+          Supprimer
+        </button>
+      </td>
+    </tr>
+  </tbody>
+  {{/devices}}
+</table>

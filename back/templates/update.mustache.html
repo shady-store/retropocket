@@ -1,0 +1,15 @@
+<div>
+  {{#needUpdate}}
+  <p>Mise à jour disponible :</p>
+  <button
+    hx-trigger="click"
+    hx-post="/update"
+    hx-disable-elt="this"
+    hx-indicator="#indicator"
+    class="matrix-button"
+    hx-swap="outerHTML"
+  >
+    Mettre à jour
+  </button>
+  {{/needUpdate}} {{^needUpdate}} Retropocket à jour {{/needUpdate}}
+</div>

@@ -1,0 +1,9 @@
+back/lib
+back/lib/*
+back/CMakeCache.txt
+back/retropocket-back
+back/MakeFile
+back/.cache
+back/.cache/*
+web/package
+

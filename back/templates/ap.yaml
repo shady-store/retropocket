@@ -1,0 +1,14 @@
+network:
+  version: 2
+  renderer: NetworkManager
+  wifis:
+    wlan0:
+      dhcp4: true
+      optional: true
+      access-points:
+        "{{apname}}":
+          auth:
+            key-management: psk
+            password: "{{appassword}}"
+          mode: ap
+          band: 5GHz

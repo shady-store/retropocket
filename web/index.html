@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="htmx-config"
+      content='{"responseHandling": [{"code":"...", "swap": true}]}'
+    />
+    <title>Retropocket</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/tabs.css" />
+    <link rel="stylesheet" href="css/table.css" />
+    <link rel="stylesheet" href="css/crt.css" />
+    <script src="js/adapter.min.js" defer></script>
+    <script src="js/janus.js" defer></script>
+    <script src="js/rain.js" defer></script>
+    <script src="js/tabs.js" defer></script>
+    <script src="js/screen.js" defer></script>
+    <script src="js/options.js" defer></script>
+    <script src="js/htmx.min.js" defer></script>
+  </head>
+  <body>
+    <div class="rain-container"></div>
+    <!-- Conteneur pour la pluie -->
+    <div id="rootContainer" class="container crt">
+      <h1>Retropocket</h1>
+
+      <!-- Onglets -->
+      <div class="tabs">
+        <button class="tab-button active" onclick="openTab('screen')">
+          Écran
+        </button>
+        <button class="tab-button" onclick="openTab('wifi')">WiFi</button>
+        <button class="tab-button" onclick="openTab('bluetooth')">
+          Bluetooth
+        </button>
+        <button class="tab-button" onclick="openTab('options')">Options</button>
+      </div>
+
+      <!-- Contenu des onglets -->
+      <div id="screen" class="tab-content active">
+        <h2>Écran</h2>
+        <div>
+          <p>Choisissez la résolution souhaitée</p>
+          <select id="resolution-select">
+            <option value="640x480">640×480</option>
+            <option value="800x600">800×600</option>
+            <option value="1024x768">1024×768</option>
+            <option value="1280x720">1280×720</option>
+            <option value="1920x1080">1920×1080</option>
+          </select>
+        </div>
+        <video
+          id="remoteVideo"
+          width="1024"
+          height="768"
+          autoplay
+          playsinline
+        ></video>
+        <audio id="remoteAudio" autoplay></audio>
+      </div>
+      <div id="wifi" class="tab-content">
+        <h2>WiFi</h2>
+        <form>
+          <p>Sélectionnez le mode :</p>
+          <div>
+            <input
+              id="ap"
+              class="matrix-radio"
+              type="radio"
+              name="mode"
+              value="AP"
+              checked
+              onclick="toggleInputs()"
+            />
+            <label class="matrix-label" for="ap"
+              >&nbsp;Point d'accès (Le retropocket est un point d'accès
+              wifi)</label
+            >
+          </div>
+          <br />
+          <div>
+            <input
+              id="client"
+              class="matrix-radio"
+              type="radio"
+              name="mode"
+              value="Client"
+              onclick="toggleInputs()"
+            />
+            <label for="client" class="matrix-label"
+              >&nbsp;Client (Le retropocket se connecte à un point d'accès
+              existant)</label
+            >
+          </div>
+          <hr />
+          <div>
+            <p>Nom du point d'accès:&nbsp;</p>
+            <input type="text" id="ssid" name="ssid" />
+            <p>Mot de passe:&nbsp;</p>
+            <input type="text" id="password" name="password" />
+            <p>Adresse IP (Laisser vide pour ip automatique)</p>
+            <input type="text" id="ipaddr" name="ipaddr" />
+          </div>
+          <br /><br />
+          <button
+            hx-post="/wifi"
+            hx-trigger="click"
+            hx-disable-elt="this"
+            hx-swap="outerHTML"
+            type="submit"
+            value="Soumettre"
+            class="matrix-button"
+          >
+            Soumettre
+          </button>
+        </form>
+      </div>
+      <div id="bluetooth" class="tab-content">
+        <h2>Bluetooth</h2>
+        <button
+          hx-trigger="click"
+          hx-get="/bluetooth"
+          hx-target="#bluetooth-devices"
+          hx-disable-elt="this"
+          hx-indicator="#indicator"
+          class="matrix-button"
+        >
+          ↻ Rafraîchir
+        </button>
+        <div id="bluetooth-devices">
+          <p>Voici les informations concernant bluetooth</p>
+          <img
+            id="indicator"
+            class="htmx-indicator center"
+            src="/img/puff.svg"
+            width="50"
+          />
+        </div>
+      </div>
+      <div id="options" class="tab-content">
+        <h2>Options</h2>
+        <div>
+          <p>
+            <label>Effet Pluie</label>
+            <label class="matrix-toggle">
+              <input type="checkbox" id="effetPluieSlider" checked />
+              <span class="slider"></span>
+            </label>
+          </p>
+          <p>
+            <label style="margin-right: 19px">Effet CRT</label>
+            <label class="matrix-toggle">
+              <input type="checkbox" id="effetCrtSlider" checked />
+              <span class="slider"></span>
+            </label>
+          </p>
+          <hr />
+          <div hx-get="/update" hx-trigger="load"></div>
+        </div>
+      </div>
+      <footer>
+        <p>V.1</p>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    background-color: black; /* Fond noir pour les boutons */
+    color: #00FF00; /* Texte vert */
+    border: 2px solid #00FF00; /* Bordure verte */
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size:20px;
+    font-family: 'Courier New', Courier, monospace; /* Police de style informatique */
+    margin: 0 5px;
+    transition: background-color 0.3s, color 0.3s; /* Transition douce */
+}
+
+.tab-button:hover {
+    background-color: #00FF00; /* Fond vert au survol */
+    color: black; /* Texte noir au survol */
+}
+
+.tab-button.active {
+    background-color: #00FF00; /* Fond vert pour l'onglet actif */
+    color: black; /* Texte noir pour l'onglet actif */
+}
+
+.tab-content {
+    display: none; /* Masquer le contenu par défaut */
+    color: #00FF00; /* Texte vert */
+}
+
+.tab-content.active {
+    display: block; /* Afficher le contenu actif */
+}
+

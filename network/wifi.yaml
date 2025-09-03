@@ -1,0 +1,14 @@
+network:
+  version: 2
+  renderer: NetworkManager
+  wifis:
+    wlan0:
+      dhcp4: true
+      optional: true
+      access-points:
+        "retropocket":
+          auth:
+            key-management: psk
+            password: "retro1234!"
+          mode: ap
+          band: 5GHz
