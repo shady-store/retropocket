@@ -1,8 +1,12 @@
+back/build
 back/lib
 back/lib/*
 back/CMakeCache.txt
 back/retropocket-back
-back/MakeFile
+back/CMakeFiles
+back/cmake_install.cmake
+back/compile_commands.json
+back/Makefile
 back/.cache
 back/.cache/*
 web/package
