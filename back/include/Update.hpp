@@ -30,7 +30,7 @@ class Update
 
         auto res = client.Get(CHECK_UPDATE_ADDR);
 
-        if (res->status == 200)
+        if (res != nullptr && res->status == 200)
         {
             CROW_LOG_DEBUG << "Last version : " << res->body;
             int lastver = std::stoi(res->body);
@@ -68,7 +68,7 @@ class Update
 
             auto res = client.Get(UPDATE_ADDR);
 
-            if (res->status == 200)
+            if (res != nullptr && res->status == 200)
             {
                 oss << res->body;
 
@@ -108,7 +108,7 @@ class Update
             }
             else
             {
-                CROW_LOG_ERROR << "Error downloading file http code : " << res->status;
+                CROW_LOG_ERROR << "Error downloading file";
                 return false;
             }
         }
