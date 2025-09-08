@@ -157,6 +157,17 @@
             </label>
           </p>
           <hr />
+          <button hx-trigger="click" hx-post="/shutdown" class="matrix-button">
+            ⏻ Eteindre
+          </button>
+          <button
+            hx-trigger="click"
+            hx-post="/shutdown?reboot=true"
+            class="matrix-button"
+          >
+            ↻ Redémarrer
+          </button>
+          <hr />
           <div hx-get="/update" hx-trigger="load"></div>
         </div>
       </div>

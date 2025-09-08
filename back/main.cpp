@@ -1,4 +1,5 @@
 #include "handlers/BluetoothHandler.hpp"
+#include "handlers/SystemHandler.hpp"
 #include "handlers/UpdateHandler.hpp"
 #include "handlers/WifiHandler.hpp"
 #include <crow/common.h>
@@ -16,6 +17,8 @@ int main(int argc, char *argv[])
     CROW_ROUTE(app, "/wifi").methods(crow::HTTPMethod::Post)(WifiHandler::handleWifi);
     CROW_ROUTE(app, "/update").methods(crow::HTTPMethod::Get)(UpdateHandler::handleUpdate);
     CROW_ROUTE(app, "/update").methods(crow::HTTPMethod::Post)(UpdateHandler::handleDoUpdate);
+
+    CROW_ROUTE(app, "/shutdown").methods(crow::HTTPMethod::Post)(SystemHandler::handleShutdown);
 
     app.port(18080).multithreaded().run();
 
