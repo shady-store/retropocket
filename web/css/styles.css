@@ -41,6 +41,10 @@ body {
 .hidden {
   display: none;
 }
+.centerContent {
+  display: grid;
+  place-items: center;
+}
 
 h1,
 h2 {
