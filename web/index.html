@@ -69,7 +69,7 @@
       </div>
       <div id="wifi" class="tab-content">
         <h2>WiFi</h2>
-        <form>
+        <form hx-post="/wifi">
           <p>Sélectionnez le mode :</p>
           <div>
             <input
@@ -83,7 +83,7 @@
             />
             <label class="matrix-label" for="ap"
               >&nbsp;Point d'accès (Le retropocket fournit son point d'accès
-              wifi)<
+              wifi)</label
             >
           </div>
           <br />
@@ -102,29 +102,16 @@
             >
           </div>
           <hr />
-          <form hx-post="/wifi">
-            <div>
-              <p>Nom du point d'accès:&nbsp;</p>
-              <input type="text" id="ssid" name="ssid" required />
-              <p>Mot de passe:&nbsp;</p>
-              <input type="text" id="password" name="password" required />
-              <p>Adresse IP (Laisser vide pour ip automatique)</p>
-              <input type="text" id="ipaddr" name="ipaddr" />
-            </div>
-            <br /><br />
-            <!--button
-              hx-post="/wifi"
-              hx-trigger="click"
-              hx-disable-elt="this"
-              hx-swap="outerHTML"
-              type="submit"
-              value="Soumettre"
-              class="matrix-button"
-            >
-              Soumettre
-            </button-->
-            <button>Soumettre</button>
-          </form>
+          <div>
+            <p>Nom du point d'accès:&nbsp;</p>
+            <input type="text" id="ssid" name="ssid" required />
+            <p>Mot de passe:&nbsp;</p>
+            <input type="text" id="password" name="password" required />
+            <p>Adresse IP (Laisser vide pour ip automatique)</p>
+            <input type="text" id="ipaddr" name="ipaddr" />
+          </div>
+          <br /><br />
+          <button type="submit" class="matrix-button">Soumettre</button>
         </form>
       </div>
       <div id="bluetooth" class="tab-content">
