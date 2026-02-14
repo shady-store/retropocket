@@ -1,0 +1,60 @@
+{
+  "tabs_screen": "Écran",
+  "tabs_wifi": "WiFi",
+  "tabs_bluetooth": "Bluetooth",
+  "tabs_options": "Options",
+
+  "screen_title": "Écran",
+  "screen_desc": "Choisissez la taille d'écran souhaitée",
+
+  "wifi_title": "WiFi",
+  "wifi_mode_select": "Sélectionnez le mode :",
+  "wifi_mode_ap": "Point d'accès (Le retropocket fournit son point d'accès wifi)",
+  "wifi_mode_client": "Client (Le retropocket se connecte à un point d'accès existant)",
+  "wifi_ssid": "Nom du point d'accès :",
+  "wifi_password": "Mot de passe :",
+  "wifi_ip": "Adresse IP (Laisser vide pour ip automatique)",
+  "wifi_submit": "Soumettre",
+
+  "bt_title": "Bluetooth",
+  "bt_refresh": "↻ Rafraîchir",
+  "bt_info": "Voici les informations concernant bluetooth",
+
+  "opt_title": "Options",
+  "opt_rain": "Effet Pluie",
+  "opt_crt": "Effet CRT",
+  "cmd_title": "Commandes",
+  "cmd_shutdown": "⏻ Eteindre",
+  "cmd_reboot": "↻ Redémarrer",
+
+  "param_title": "Paramétrage",
+  "param_video": "Capture Vidéo",
+  "param_res": "Résolution",
+  "param_fps": "Images par seconde",
+  "param_bitrate": "Bitrate Vidéo",
+  "param_buf": "Tampon (Buffer)",
+  "param_gop": "GOP (Images clés)",
+  "param_save": "Enregistrer",
+
+  "param_audio": "Capture Audio",
+  "param_lat": "Latence (ms)",
+  "param_abitrate": "Bitrate Audio",
+  "param_sample": "Samplerate",
+  "param_dur": "Frame Duration",
+
+  "param_sys": "Système",
+  "param_gov": "Mode Performance",
+  "param_sd": "Optimisation SD",
+
+  "bt_table_name": "Nom",
+  "bt_table_mac": "Adresse MAC",
+  "bt_table_status": "Statut",
+  "bt_table_action": "Action",
+  "bt_btn_connect": "Connecter",
+  "bt_btn_disconnect": "Déconnecter",
+  "bt_btn_add": "Ajouter",
+  "bt_btn_delete": "Supprimer",
+  "upd_available": "Mise à jour disponible :",
+  "upd_btn": "Mettre à jour",
+  "upd_ok": "Retropocket à jour"
+}

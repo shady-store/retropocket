@@ -1,0 +1,60 @@
+{
+  "tabs_screen": "Screen",
+  "tabs_wifi": "WiFi",
+  "tabs_bluetooth": "Bluetooth",
+  "tabs_options": "Options",
+
+  "screen_title": "Screen",
+  "screen_desc": "Choose your desired screen size",
+
+  "wifi_title": "WiFi",
+  "wifi_mode_select": "Select mode:",
+  "wifi_mode_ap": "Access Point (Retropocket creates its own hotspot)",
+  "wifi_mode_client": "Client (Retropocket connects to an existing network)",
+  "wifi_ssid": "Access Point Name (SSID):",
+  "wifi_password": "Password:",
+  "wifi_ip": "IP Address (Leave blank for DHCP/Auto)",
+  "wifi_submit": "Submit",
+
+  "bt_title": "Bluetooth",
+  "bt_refresh": "↻ Refresh",
+  "bt_info": "Bluetooth status and devices",
+
+  "opt_title": "Options",
+  "opt_rain": "Rain Effect",
+  "opt_crt": "CRT Effect",
+  "cmd_title": "Commands",
+  "cmd_shutdown": "⏻ Shutdown",
+  "cmd_reboot": "↻ Reboot",
+
+  "param_title": "Settings",
+  "param_video": "Video Capture",
+  "param_res": "Resolution",
+  "param_fps": "Frames Per Second",
+  "param_bitrate": "Video Bitrate",
+  "param_buf": "Buffer Size",
+  "param_gop": "GOP (Keyframes)",
+  "param_save": "Save Settings",
+
+  "param_audio": "Audio Capture",
+  "param_lat": "Latency (ms)",
+  "param_abitrate": "Audio Bitrate",
+  "param_sample": "Sample Rate",
+  "param_dur": "Frame Duration",
+
+  "param_sys": "System",
+  "param_gov": "Performance Mode",
+  "param_sd": "SD Card Optimization",
+
+  "bt_table_name": "Name",
+  "bt_table_mac": "MAC Address",
+  "bt_table_status": "Status",
+  "bt_table_action": "Action",
+  "bt_btn_connect": "Connect",
+  "bt_btn_disconnect": "Disconnect",
+  "bt_btn_add": "Add",
+  "bt_btn_delete": "Delete",
+  "upd_available": "Update available:",
+  "upd_btn": "Update now",
+  "upd_ok": "Retropocket is up to date"
+}

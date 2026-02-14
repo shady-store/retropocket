@@ -4,7 +4,6 @@
 #include "System.hpp"
 #include "Tools.hpp"
 #include "crow/logging.h"
-#include <iostream>
 #include <regex>
 #include <string>
 #include <vector>
@@ -60,6 +59,9 @@ class Bluetooth
                       echo quit
                       ) | bluetoothctl)-";
         std::string output = System::exec(command.c_str());
+
+        CROW_LOG_DEBUG << "ADD DEVICE RETOUR : " << output;
+
         if (output.find("Failed to pair") != std::string::npos)
         {
             CROW_LOG_DEBUG << "❌ Appairage échoué.";
@@ -83,6 +85,9 @@ class Bluetooth
                     echo quit
                     ) | bluetoothctl)-";
         std::string output = System::exec(command.c_str());
+
+        CROW_LOG_DEBUG << "DISCONNECT DEVICE RETOUR : " << output;
+
         if (output.find("Disconnection successful") != std::string::npos)
         {
             CROW_LOG_DEBUG << "✅ Déconnexion réussie.";
@@ -109,6 +114,9 @@ class Bluetooth
                     echo quit
                     ) | bluetoothctl)-";
         std::string output = System::exec(command.c_str());
+
+        CROW_LOG_DEBUG << "REMOVE DEVICE RETOUR : " << output;
+
         if (output.find("Device has been removed") != std::string::npos)
         {
             CROW_LOG_DEBUG << "✅ Déconnexion réussie.";
@@ -135,6 +143,8 @@ class Bluetooth
                       echo quit
                       ) | bluetoothctl)-";
         std::string output = System::exec(command.c_str());
+
+        CROW_LOG_DEBUG << "CONNECT DEVICE RETOUR : " << output;
 
         if (output.find("Connection successful") != std::string::npos)
         {
@@ -166,6 +176,9 @@ class Bluetooth
                     echo quit
                     ) | bluetoothctl)-";
         std::string output = System::exec(command.c_str());
+
+        CROW_LOG_DEBUG << "DISCONNECT AND REMOVE RETOUR : " << output;
+
         if (output.find("Successful disconnected") != std::string::npos)
         {
             CROW_LOG_DEBUG << "✅ Déconnexion réussie.";

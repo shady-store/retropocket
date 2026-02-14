@@ -7,10 +7,10 @@
 <table>
   <thead>
     <tr>
-      <th>Nom</th>
-      <th>Adresse MAC</th>
-      <th>Statut</th>
-      <th>Action</th>
+      <th data-i18n="bt_table_name">Nom</th>
+      <th data-i18n="bt_table_mac">Adresse MAC</th>
+      <th data-i18n="bt_table_status">Statut</th>
+      <th data-i18n="bt_table_action">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -23,49 +23,40 @@
         <button
           class="matrix-button {{connect-class}}"
           hx-put="/bluetooth?mac={{mac}}&action=connect"
-          hx-trigger="click"
-          hx-disable-elt="this"
-          hx-swap="innerHTML"
-          hx-target="closest td"
           hx-indicator="#indicator"
+          data-i18n="bt_btn_connect"
         >
           Connecter
         </button>
+
         <button
           class="matrix-button {{disconnect-class}}"
           hx-put="/bluetooth?mac={{mac}}&action=disconnect"
-          hx-trigger="click"
-          hx-disable-elt="this"
-          hx-swap="innerHTML"
-          hx-target="closest td"
           hx-indicator="#indicator"
+          data-i18n="bt_btn_disconnect"
         >
           Deconnecter
         </button>
+
         <button
           class="matrix-button {{add-class}}"
           hx-post="/bluetooth?mac={{mac}}"
-          hx-trigger="click"
-          hx-disable-elt="this"
-          hx-swap="innerHTML"
-          hx-target="closest td"
           hx-indicator="#indicator"
+          data-i18n="bt_btn_add"
         >
           Ajouter
         </button>
+
         <button
           class="matrix-button {{delete-class}}"
           hx-delete="/bluetooth?mac={{mac}}"
-          hx-trigger="click"
-          hx-disable-elt="this"
-          hx-swap="innerHTML"
-          hx-target="closest td"
           hx-indicator="#indicator"
+          data-i18n="bt_btn_delete"
         >
           Supprimer
         </button>
       </td>
     </tr>
+    {{/devices}}
   </tbody>
-  {{/devices}}
 </table>

@@ -1,52 +1,75 @@
 #!/bin/bash
-sudomdp="retro1234!"
-# Fichier déclencheur
-TRIGGER_FILE="/home/retropocket/sdcard/.reset"
-RESET_DIRECTORY="/home/retropocket/original/retropocket"
-RESET_NETPLAN="/home/retropocket/original/retropocket/network/wifi.yaml"
 
-SOURCE_DIR="/tmp/retropocket"
-DEST_DIR="/home/retropocket/"
-
-# Vérifier si le dossier existe
-if [ -d "$SOURCE_DIR" ]; then
-  echo "Le dossier $SOURCE_DIR existe. Déplacement en cours..."
-  mv "$SOURCE_DIR" "$DEST_DIR"
-  echo "Déplacement terminé."
+# 1. Chargement et nettoyage de la configuration
+CONF="/boot/retropocket.conf"
+if [ -f "$CONF" ]; then
+  sed 's/\r$//' "$CONF" >/tmp/rp.conf && source /tmp/rp.conf
 else
-  echo "Le dossier $SOURCE_DIR n'existe pas."
+  echo "ERREUR : Fichier de config introuvable !" && exit 1
 fi
 
-# Vérifier si le fichier déclencheur existe
-if [ -f "$TRIGGER_FILE" ]; then
-  echo "Fichier reset $TRIGGER_FILE trouvé. Copie en cours..."
+echo "--- Initialisation Retropocket (Dual Watchdog Mode) ---"
 
-  # Créer le dossier destination s'il n'existe pas
-  mkdir -p "$DEST_DIR"/retropocket
+# 2. Optimisations Hardware
+for i in {0..3}; do
+  echo "$SUDOMDP" | sudo -S sh -c "echo $GOVERNOR > /sys/devices/system/cpu/cpu$i/cpufreq/scaling_governor"
+done
+echo "$SUDOMDP" | sudo -S sh -c "echo $GOVERNOR > /sys/devices/platform/fde60000.gpu/devfreq/fde60000.gpu/governor"
+echo "$SUDOMDP" | sudo -S sh -c "echo $GOVERNOR > /sys/devices/platform/dmc/devfreq/dmc/governor"
+echo "$SUDOMDP" | sudo -S iw dev "$WIFI_INTERFACE" set power_save off
+echo "$SUDOMDP" | sudo -S blockdev --setra $READ_AHEAD "$DISK_DEV"
+echo "$SUDOMDP" | sudo -S chmod 777 /dev/tty*
 
-  # Copier le contenu du dossier source vers la destination
-  cp -r "$RESET_DIRECTORY"/* "$DEST_DIR"/retropocket
+# 3. Watchdog VIDEO (KMSGrab)
+video_watchdog() {
+  echo "Watchdog Vidéo activé."
+  while true; do
+    # On cherche le ffmpeg qui utilise kmsgrab
+    if ! pgrep -f "ffmpeg.*kmsgrab" >/dev/null; then
+      echo "[Watchdog Video] Relancement..."
+      echo "$SUDOMDP" | sudo -S ffmpeg -f kmsgrab -device "$VIDEO_DEVICE" -framerate "$VIDEO_FPS" -i - \
+        -vcodec h264_rkmpp -g "$VIDEO_GOP" -b:v "$VIDEO_BITRATE" \
+        -maxrate "$VIDEO_BITRATE" -bufsize "$VIDEO_BUFSIZE" \
+        -f rtp "rtp://$VIDEO_DEST" >/dev/tty2 2>&1
+    fi
+    sleep 2
+  done
+}
 
-  exec echo $sudomdp | sudo -S cp $RESET_NETPLAN /etc/netplan
-  exec echo $sudomdp | sudo -S netplan apply
+# 4. Watchdog AUDIO (Pulse/Opus)
+audio_watchdog() {
+  echo "Watchdog Audio activé."
+  while true; do
+    # On cherche le ffmpeg qui utilise pulse
+    if ! pgrep -f "ffmpeg.*pulse" >/dev/null; then
+      echo "[Watchdog Audio] Relancement..."
+      export PULSE_LATENCY_MSEC="$AUDIO_LATENCY"
+      ffmpeg -use_wallclock_as_timestamps 1 \
+        -f pulse -i "$AUDIO_SOURCE" \
+        -acodec libopus -application lowdelay -frame_duration "$AUDIO_FRAME_DUR" \
+        -ar "$AUDIO_SAMPLERATE" -b:a "$AUDIO_BITRATE" \
+        -af "aresample=async=1:min_hard_comp=0.01" \
+        -f rtp "rtp://$AUDIO_DEST" >/dev/tty3 2>&1
+    fi
+    sleep 2
+  done
+}
 
-  echo "Copie terminée."
+# 5. Lancement des services en arrière-plan
+echo "Démarrage Bluetooth..."
+echo "$SUDOMDP" | sudo -S "$BLUETOOTH_SCRIPT" &
 
-  echo "Suppression du fichier reset"
-  rm $TRIGGER_FILE
-else
-  echo "Fichier $TRIGGER_FILE introuvable. Aucune action effectuée."
-fi
+echo "Démarrage Backend d'administration..."
+cd "$(dirname "$BACKEND_BIN")"
+echo "$SUDOMDP" | sudo -S "$BACKEND_BIN" >/dev/tty4 2>&1 &
 
-echo "Démarrage bluetooth"
-exec echo $sudomdp | sudo -S /home/retropocket/blue.sh &
+# 6. Activation des Watchdogs
+video_watchdog &
+audio_watchdog &
 
-echo "Démarrage retroarch"
-exec /usr/bin/retroarch >/dev/tty1 2>&1 &
+# 7. Lancement de l'interface principale (Bloquant)
+echo "Démarrage de l'interface..."
+"$EMU_BIN" >/dev/tty1 2>&1
 
-echo "Démarrage streaming ffmpeg vidéo"
-exec echo $sudomdp | sudo -S ffmpeg -device /dev/dri/card0 -f kmsgrab -i - -r 30 -vcodec h264_rkmpp -f rtp rtp://localhost:8004 >/dev/tty2 2>&1 &
-
-echo "Démarrage streaming ffmpeg audio"
-exec ffmpeg -f pulse -i alsa_output.platform-hdmi-sound.stereo-fallback.monitor -acodec libopus -b 96000 -f rtp rtp://localhost:5004 >/dev/tty3 2>&1 &
-cd /home/retropocket/retropocket/back/ && exec echo $sudomdp | sudo -S ./retropocket-back >/dev/tty4 2>&1 &
+echo "L'interface a été quittée. Nettoyage..."
+pkill -f ffmpeg

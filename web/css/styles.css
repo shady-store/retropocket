@@ -45,6 +45,24 @@ body {
   display: grid;
   place-items: center;
 }
+.flex {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start; /* Aligne le haut des colonnes */
+}
+.settings-column {
+  display: flex;
+  flex-direction: column; /* FORCE l'empilement vertical (Titre, puis Label, puis Select) */
+  flex: 1; /* Partage l'espace équitablement */
+}
+/* Optionnel : un peu d'air entre les éléments de la colonne */
+.settings-column label,
+.settings-column select,
+.settings-column h3 {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+}
 
 h1,
 h2 {
@@ -248,4 +266,60 @@ input:checked + .slider:before {
   transform: translateX(26px);
   background-color: #00ff00;
   box-shadow: 0 0 12px #00ff00;
+}
+/* Conteneur principal des options */
+.grid-options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 190px; /* Ajuste selon tes préférences */
+  margin-bottom: 20px;
+}
+
+/* Chaque ligne (Label + Switch) */
+.option-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Pousse le switch à l'extrémité droite */
+  width: 100%;
+}
+
+/* Style spécifique pour les labels des options */
+.option-row label[data-i18n] {
+  font-family: "Courier New", Courier, monospace; /* Pour le style Matrix */
+  color: #00ff00;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+/* On s'assure que le toggle ne shrink pas */
+.matrix-toggle {
+  flex-shrink: 0;
+}
+footer .footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  font-size: 0.8em;
+  border-top: 1px solid var(--matrix-green); /* ou ta couleur */
+}
+
+.lang-btn {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0 5px;
+}
+
+.lang-btn:hover {
+  color: #00ff00;
+  text-shadow: 0 0 5px #00ff00;
+}
+
+.separator {
+  color: #444;
 }

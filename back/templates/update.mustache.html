@@ -1,15 +1,16 @@
 <div>
   {{#needUpdate}}
-  <p>Mise à jour disponible :</p>
+  <p data-i18n="upd_available">Mise à jour disponible :</p>
   <button
-    hx-trigger="click"
     hx-post="/update"
-    hx-disable-elt="this"
     hx-indicator="#indicator"
     class="matrix-button"
     hx-swap="outerHTML"
+    data-i18n="upd_btn"
   >
     Mettre à jour
   </button>
-  {{/needUpdate}} {{^needUpdate}} Retropocket à jour {{/needUpdate}}
+  {{/needUpdate}} {{^needUpdate}}
+  <span data-i18n="upd_ok">Retropocket à jour</span>
+  {{/needUpdate}}
 </div>

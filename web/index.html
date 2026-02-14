@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/tabs.css" />
     <link rel="stylesheet" href="css/table.css" />
     <link rel="stylesheet" href="css/crt.css" />
+
     <script src="js/adapter.min.js" defer></script>
     <script src="js/janus.js" defer></script>
     <script src="js/rain.js" defer></script>
@@ -22,154 +23,358 @@
   </head>
   <body>
     <div class="rain-container"></div>
-    <!-- Conteneur pour la pluie -->
-    <div id="rootContainer" class="container crt">
-      <h1>Retropocket</h1>
 
-      <!-- Onglets -->
-      <div class="tabs">
-        <button class="tab-button active" onclick="openTab('screen')">
+    <div id="rootContainer" class="container crt">
+      <header>
+        <h1>Retropocket</h1>
+      </header>
+
+      <nav class="tabs">
+        <button
+          class="tab-button active"
+          onclick="openTab('screen');"
+          data-i18n="tabs_screen"
+        >
           Écran
         </button>
-        <button class="tab-button" onclick="openTab('wifi')">WiFi</button>
-        <button class="tab-button" onclick="openTab('bluetooth')">
+        <button
+          class="tab-button"
+          onclick="openTab('wifi');"
+          data-i18n="tabs_wifi"
+        >
+          WiFi
+        </button>
+        <button
+          class="tab-button"
+          onclick="openTab('bluetooth');"
+          data-i18n="tabs_bluetooth"
+        >
           Bluetooth
         </button>
-        <button class="tab-button" onclick="openTab('options')">Options</button>
-      </div>
-
-      <!-- Contenu des onglets -->
-      <div id="screen" class="tab-content active">
-        <h2>Écran</h2>
-        <div>
-          <p>Choisissez la taille d'écran souhaitée</p>
-          <select id="resolution-select">
-            <option value="617x360">617×360</option>
-            <option value="640x360">640×360</option>
-            <option value="640x480">640×480</option>
-            <option value="800x450">800×450</option>
-            <option value="800x600">800×600</option>
-            <option value="1024x576">1024×576</option>
-            <option value="1024x768">1024×768</option>
-            <option value="1280x720">1280×720</option>
-            <option value="1280x960">1280×960</option>
-            <option value="1920x1080">1920×1080</option>
-          </select>
-        </div>
-        <div class="centerContent">
-          <video
-            id="remoteVideo"
-            width="640"
-            height="480"
-            autoplay
-            playsinline
-          ></video>
-        </div>
-        <audio id="remoteAudio" autoplay></audio>
-      </div>
-      <div id="wifi" class="tab-content">
-        <h2>WiFi</h2>
-        <form hx-post="/wifi">
-          <p>Sélectionnez le mode :</p>
-          <div>
-            <input
-              id="ap"
-              class="matrix-radio"
-              type="radio"
-              name="mode"
-              value="AP"
-              checked
-              onclick="toggleInputs()"
-            />
-            <label class="matrix-label" for="ap"
-              >&nbsp;Point d'accès (Le retropocket fournit son point d'accès
-              wifi)</label
-            >
-          </div>
-          <br />
-          <div>
-            <input
-              id="client"
-              class="matrix-radio"
-              type="radio"
-              name="mode"
-              value="Client"
-              onclick="toggleInputs()"
-            />
-            <label for="client" class="matrix-label"
-              >&nbsp;Client (Le retropocket se connecte à un point d'accès
-              existant)</label
-            >
-          </div>
-          <hr />
-          <div>
-            <p>Nom du point d'accès:&nbsp;</p>
-            <input type="text" id="ssid" name="ssid" required />
-            <p>Mot de passe:&nbsp;</p>
-            <input type="text" id="password" name="password" required />
-            <p>Adresse IP (Laisser vide pour ip automatique)</p>
-            <input type="text" id="ipaddr" name="ipaddr" />
-          </div>
-          <br /><br />
-          <button type="submit" class="matrix-button">Soumettre</button>
-        </form>
-      </div>
-      <div id="bluetooth" class="tab-content">
-        <h2>Bluetooth</h2>
         <button
-          hx-trigger="click"
-          hx-get="/bluetooth"
-          hx-target="#bluetooth-devices"
-          hx-disable-elt="this"
-          hx-indicator="#indicator"
-          class="matrix-button"
+          class="tab-button"
+          onclick="openTab('options');"
+          data-i18n="tabs_options"
         >
-          ↻ Rafraîchir
+          Options
         </button>
-        <div id="bluetooth-devices">
-          <p>Voici les informations concernant bluetooth</p>
-          <img
-            id="indicator"
-            class="htmx-indicator center"
-            src="/img/puff.svg"
-            width="50"
-          />
-        </div>
-      </div>
-      <div id="options" class="tab-content">
-        <h2>Options</h2>
-        <div>
-          <p>
-            <label>Effet Pluie</label>
-            <label class="matrix-toggle">
-              <input type="checkbox" id="effetPluieSlider" checked />
-              <span class="slider"></span>
-            </label>
-          </p>
-          <p>
-            <label style="margin-right: 19px">Effet CRT</label>
-            <label class="matrix-toggle">
-              <input type="checkbox" id="effetCrtSlider" checked />
-              <span class="slider"></span>
-            </label>
-          </p>
-          <hr />
-          <button hx-trigger="click" hx-post="/shutdown" class="matrix-button">
-            ⏻ Eteindre
-          </button>
+      </nav>
+
+      <main>
+        <section id="screen" class="tab-content active">
+          <h2 data-i18n="screen_title">Écran</h2>
+          <div class="control-group">
+            <p data-i18n="screen_desc">
+              Choisissez la taille d'écran souhaitée
+            </p>
+            <select id="resolution-select">
+              <option value="617x360">617×360</option>
+              <option value="640x360">640×360</option>
+              <option value="640x480">640×480</option>
+              <option value="800x450">800×450</option>
+              <option value="800x600">800×600</option>
+              <option value="1024x576">1024×576</option>
+              <option value="1024x768">1024×768</option>
+              <option value="1280x720">1280×720</option>
+              <option value="1280x960">1280×960</option>
+              <option value="1920x1080">1920×1080</option>
+            </select>
+          </div>
+          <div class="centerContent">
+            <video
+              id="remoteVideo"
+              width="640"
+              height="480"
+              autoplay
+              muted
+              playsinline
+            ></video>
+          </div>
+          <audio id="remoteAudio" autoplay></audio>
+        </section>
+
+        <section id="wifi" class="tab-content">
+          <h2 data-i18n="wifi_title">WiFi</h2>
+          <form hx-post="/wifi">
+            <p data-i18n="wifi_mode_select">Sélectionnez le mode :</p>
+            <div class="radio-group">
+              <input
+                id="ap"
+                class="matrix-radio"
+                type="radio"
+                name="mode"
+                value="AP"
+                checked
+                onclick="toggleInputs();"
+              />
+              <label class="matrix-label" for="ap" data-i18n="wifi_mode_ap"
+                >Point d'accès (Le retropocket fournit son point d'accès
+                wifi)</label
+              >
+            </div>
+            <div class="radio-group">
+              <input
+                id="client"
+                class="matrix-radio"
+                type="radio"
+                name="mode"
+                value="Client"
+                onclick="toggleInputs();"
+              />
+              <label
+                class="matrix-label"
+                for="client"
+                data-i18n="wifi_mode_client"
+                >Client (Le retropocket se connecte à un point d'accès
+                existant)</label
+              >
+            </div>
+
+            <hr />
+
+            <div class="input-fields">
+              <label for="ssid" data-i18n="wifi_ssid"
+                >Nom du point d'accès :</label
+              >
+              <input type="text" id="ssid" name="ssid" required />
+
+              <label for="password" data-i18n="wifi_password"
+                >Mot de passe :</label
+              >
+              <input type="password" id="password" name="password" required />
+
+              <label for="ipaddr" data-i18n="wifi_ip"
+                >Adresse IP (Laisser vide pour IP automatique)</label
+              >
+              <input
+                type="text"
+                id="ipaddr"
+                name="ipaddr"
+                placeholder="192.168.x.x"
+              />
+            </div>
+
+            <button type="submit" class="matrix-button" data-i18n="wifi_submit">
+              Soumettre
+            </button>
+          </form>
+        </section>
+
+        <section id="bluetooth" class="tab-content">
+          <h2 data-i18n="bt_title">Bluetooth</h2>
           <button
-            hx-trigger="click"
-            hx-post="/shutdown?reboot=true"
+            hx-get="/bluetooth"
+            hx-target="#bluetooth-devices"
+            hx-indicator="#indicator"
             class="matrix-button"
+            data-i18n="bt_refresh"
           >
-            ↻ Redémarrer
+            ↻ Rafraîchir
           </button>
+          <div id="bluetooth-devices">
+            <p data-i18n="bt_info">
+              Voici les informations concernant bluetooth
+            </p>
+            <img
+              id="indicator"
+              class="htmx-indicator center"
+              src="/img/puff.svg"
+              width="50"
+              alt="loading"
+            />
+          </div>
+        </section>
+
+        <section id="options" class="tab-content">
+          <h2 data-i18n="opt_title">Options</h2>
+
+          <div class="grid-options">
+            <div class="option-row">
+              <label data-i18n="opt_rain" for="effetPluieSlider"
+                >Effet Pluie</label
+              >
+              <label class="matrix-toggle">
+                <input type="checkbox" id="effetPluieSlider" checked />
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="option-row">
+              <label data-i18n="opt_crt" for="effetCrtSlider">Effet CRT</label>
+              <label class="matrix-toggle">
+                <input type="checkbox" id="effetCrtSlider" checked />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+          <hr />
+
+          <h2 data-i18n="cmd_title">Commandes</h2>
+          <div class="button-group">
+            <button
+              hx-post="/shutdown"
+              class="matrix-button"
+              data-i18n="cmd_shutdown"
+            >
+              ⏻ Eteindre
+            </button>
+            <button
+              hx-post="/shutdown?reboot=true"
+              class="matrix-button"
+              data-i18n="cmd_reboot"
+            >
+              ↻ Redémarrer
+            </button>
+          </div>
+
+          <hr />
+
+          <h2 data-i18n="param_title">Paramétrage</h2>
+          <div class="flex">
+            <div class="settings-column">
+              <h3 data-i18n="param_video">Capture Vidéo</h3>
+
+              <label for="resolution-capture-select" data-i18n="param_res"
+                >Résolution</label
+              >
+              <select id="resolution-capture-select">
+                <option value="617x360">617×360</option>
+                <option value="640x360">640×360</option>
+                <option value="640x480">640×480</option>
+                <option value="800x450">800×450</option>
+                <option value="800x600">800×600</option>
+                <option value="1024x576">1024×576</option>
+                <option value="1024x768" selected>1024×768</option>
+                <option value="1280x720">1280×720</option>
+                <option value="1280x960">1280×960</option>
+                <option value="1920x1080">1920×1080</option>
+              </select>
+
+              <label for="fps-capture-select" data-i18n="param_fps"
+                >Images par seconde</label
+              >
+              <select id="fps-capture-select">
+                <option value="30">30 FPS</option>
+                <option value="60" selected>60 FPS</option>
+              </select>
+
+              <label for="bitrate-capture-select" data-i18n="param_bitrate"
+                >Bitrate Vidéo</label
+              >
+              <select id="bitrate-capture-select">
+                <option value="4M">4M (Haute)</option>
+                <option value="2M" selected>2M (Standard)</option>
+                <option value="1M">1M (Eco)</option>
+              </select>
+
+              <label for="buf-capture-select" data-i18n="param_buf"
+                >Tampon (Buffer)</label
+              >
+              <select id="buf-capture-select">
+                <option value="250k">250k</option>
+                <option value="500k" selected>500k</option>
+                <option value="1M">1M</option>
+              </select>
+
+              <label for="gop-capture-select" data-i18n="param_gop"
+                >GOP (Images clés)</label
+              >
+              <select id="gop-capture-select">
+                <option value="30" selected>30</option>
+                <option value="60">60</option>
+              </select>
+
+              <div class="action-container" style="margin-top: 20px">
+                <button
+                  id="save-config-btn"
+                  class="matrix-button"
+                  data-i18n="param_save"
+                >
+                  Enregistrer
+                </button>
+              </div>
+            </div>
+
+            <div class="settings-column">
+              <h3 data-i18n="param_audio">Capture Audio</h3>
+
+              <label for="audio-latency-select" data-i18n="param_lat"
+                >Latence (ms)</label
+              >
+              <select id="audio-latency-select">
+                <option value="10">10ms</option>
+                <option value="5" selected>5ms</option>
+                <option value="2">2ms (Instable)</option>
+              </select>
+
+              <label
+                for="audiobitrate-latency-select"
+                data-i18n="param_abitrate"
+                >Bitrate Audio</label
+              >
+              <select id="audiobitrate-latency-select">
+                <option value="96k">96k</option>
+                <option value="64k" selected>64k</option>
+                <option value="32k">32k</option>
+              </select>
+
+              <label
+                for="audiosamplerate-latency-select"
+                data-i18n="param_sample"
+                >Samplerate</label
+              >
+              <select id="audiosamplerate-latency-select">
+                <option value="48000" selected>48000 Hz</option>
+                <option value="44100">44100 Hz</option>
+                <option value="24000">24000 Hz</option>
+              </select>
+
+              <label for="audio-frame-dur-select" data-i18n="param_dur"
+                >Frame Duration</label
+              >
+              <select id="audio-frame-dur-select">
+                <option value="10">10ms (Ultra-Low)</option>
+                <option value="20" selected>20ms (Recommandé)</option>
+                <option value="40">40ms (Stable)</option>
+              </select>
+            </div>
+
+            <div class="settings-column">
+              <h3 data-i18n="param_sys">Système</h3>
+
+              <label for="governor-select" data-i18n="param_gov"
+                >Mode Performance</label
+              >
+              <select id="governor-select">
+                <option value="performance" selected>Performance</option>
+                <option value="schedutil">Adaptatif</option>
+              </select>
+
+              <label for="read-ahead-select" data-i18n="param_sd"
+                >Optimisation SD</label
+              >
+              <select id="read-ahead-select">
+                <option value="1024">1024 (Normal)</option>
+                <option value="2048" selected>2048 (Rapide)</option>
+                <option value="4096">4096 (Max)</option>
+              </select>
+            </div>
+          </div>
+
           <hr />
           <div hx-get="/update" hx-trigger="load"></div>
-        </div>
-      </div>
+        </section>
+      </main>
+
       <footer>
-        <p>V.1</p>
+        <div class="footer-content">
+          <span>V.1</span>
+          <div class="language-picker">
+            <button class="lang-btn" onclick="changeLanguage('fr')">FR</button>
+            <span class="separator">|</span>
+            <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
+          </div>
+        </div>
       </footer>
     </div>
   </body>
