@@ -1,19 +1,17 @@
-function openTab(tabName) {
-  // Masquer tous les contenus des onglets
+function openTab(tabName, clickedButton) {
+  // 1. Masquer tous les contenus
   const tabContents = document.querySelectorAll(".tab-content");
-  tabContents.forEach((content) => {
-    content.classList.remove("active");
-  });
+  tabContents.forEach((content) => content.classList.remove("active"));
 
-  // Retirer la classe active de tous les boutons
+  // 2. Retirer la classe active de TOUS les boutons
   const tabButtons = document.querySelectorAll(".tab-button");
-  tabButtons.forEach((button) => {
-    button.classList.remove("active");
-  });
+  tabButtons.forEach((button) => button.classList.remove("active"));
 
-  // Afficher le contenu de l'onglet sélectionné
-  document.getElementById(tabName).classList.add("active");
+  // 3. Afficher le bon contenu
+  const targetContent = document.getElementById(tabName);
+  if (targetContent) targetContent.classList.add("active");
 
+  // 4. Gestion Audio/Vidéo
   const remoteAudio = document.getElementById("remoteAudio");
   const remoteVideo = document.getElementById("remoteVideo");
   if (tabName === "screen") {
@@ -24,12 +22,10 @@ function openTab(tabName) {
     remoteAudio.pause();
   }
 
-  // Ajouter la classe active au bouton correspondant
-  const activeButton = Array.from(tabButtons).find(
-    (button) =>
-      button.textContent === tabName.charAt(0).toUpperCase() + tabName.slice(1),
-  );
-  activeButton.classList.add("active");
+  // 5. Ajouter la classe active au bouton cliqué (Simple et efficace !)
+  if (clickedButton) {
+    clickedButton.classList.add("active");
+  }
 }
 function toggleInputs() {
   const apMode = document.querySelector(

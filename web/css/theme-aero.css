@@ -1,0 +1,240 @@
+/* ============================================================
+   THEME AERO FRUTIGER - BLUE OPTIMIST (FINAL CLEAN)
+   ============================================================ */
+
+:root {
+  --aero-cobalt: #0047ab;
+  --aero-cyan: #00d4ff;
+  --aero-white: #ffffff;
+  --accent-color: #ffffff;
+  --aero-text: #e0f7fa;
+}
+
+/* --- NETTOYAGE GLOBAL DU VERT MATRIX --- */
+/* On cible absolument tout ce qui pourrait porter du texte */
+body,
+.container,
+p,
+label,
+span,
+button,
+select,
+input,
+h1,
+h2,
+h3,
+div {
+  color: var(--aero-text) !important;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* --- FOND AURORA --- */
+.rain-container {
+  background: linear-gradient(
+    135deg,
+    #001f3f 0%,
+    #0074d9 50%,
+    #7fdbff 100%
+  ) !important;
+  background-size: 400% 400% !important;
+  animation: auroraShift 20s ease infinite !important;
+  display: block !important;
+}
+
+@keyframes auroraShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* --- TITRES GLOSSY (BLEU/BLANC) --- */
+h1,
+h2,
+h3 {
+  background: linear-gradient(to bottom, #ffffff 20%, #80e5ff 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.4)) !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+}
+
+/* --- CONTAINER CRYSTAL (Bordure transparente) --- */
+.container {
+  background: rgba(0, 40, 80, 0.45) !important;
+  backdrop-filter: blur(25px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(25px) saturate(160%);
+
+  /* La bordure vitrée épaisse demandée */
+  border: 12px solid rgba(255, 255, 255, 0.12) !important;
+  outline: 1px solid rgba(255, 255, 255, 0.3) !important;
+
+  border-radius: 40px !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* --- TOUS LES SELECTS (Correction des champs récalcitrants) --- */
+select,
+.rtheme-select,
+#resolution-select,
+#resolution-capture-select,
+#fps-capture-select,
+#bitrate-capture-select,
+#buf-capture-select,
+#gop-capture-select,
+#audio-latency-select,
+#audiobitrate-latency-select,
+#audiosamplerate-latency-select,
+#audio-frame-dur-select,
+#governor-select,
+#read-ahead-select {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(0, 212, 255, 0.5) !important;
+  border-radius: 8px !important;
+  padding: 5px 10px !important;
+  color: white !important;
+  appearance: auto !important; /* Pour garder la flèche système propre */
+}
+
+select option {
+  background-color: var(--aero-cobalt) !important;
+  color: white !important;
+}
+
+/* --- BOUTONS (DESIGN GÉLULE) --- */
+.tab-button,
+.rtheme-button,
+button[type="submit"] {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(0, 0, 0, 0.2) 100%
+  ) !important;
+  border: 1px solid rgba(0, 212, 255, 0.4) !important;
+  border-radius: 50px !important;
+  color: white !important;
+  padding: 8px 18px !important;
+  transition: all 0.3s ease !important;
+}
+
+.tab-button.active,
+.rtheme-button:hover {
+  background: linear-gradient(180deg, #00d4ff 0%, #0074d9 100%) !important;
+  box-shadow:
+    0 0 15px rgba(0, 212, 255, 0.5),
+    inset 0 2px 5px white !important;
+  border-color: white !important;
+}
+
+/* --- CHAMPS TEXTE & HR --- */
+input[type="text"],
+input[type="password"] {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 5px !important;
+  color: white !important;
+  padding: 5px !important;
+}
+hr {
+  border: 0 !important;
+  height: 1px !important;
+  /* Un dégradé de lumière blanche et bleue plutôt que le vert Matrix */
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  ) !important;
+  margin: 20px 0 !important;
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.3) !important;
+}
+
+/* --- LES SWITCHS / SLIDERS (LE CŒUR DU PROBLÈME) --- */
+/* La base du slider (le rail) */
+.rtheme-toggle .slider {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Le slider quand il est activé (ON) */
+input:checked + .slider {
+  background: linear-gradient(
+    180deg,
+    var(--aero-cyan) 0%,
+    var(--aero-cobalt) 100%
+  ) !important;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.7) !important;
+}
+
+/* Le petit bouton rond à l'intérieur du slider */
+.slider:before {
+  background-color: white !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* --- MISE EN FORME DES TITRES (OPTIONNEL MAIS RECOMMANDÉ) --- */
+h2 {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  padding-bottom: 5px !important;
+}
+
+/* --- CORRECTION DES RADIO BUTTONS --- */
+.rtheme-radio {
+  accent-color: var(--aero-cyan) !important; /* Pour les navigateurs modernes */
+}
+
+/* Style spécifique si tu as des radios personnalisées */
+input[type="radio"].rtheme-radio:checked {
+  background-color: var(--aero-cyan) !important;
+  box-shadow: 0 0 10px var(--aero-cyan) !important;
+}
+table {
+  border-collapse: collapse;
+  margin: 20px auto;
+  box-shadow: 0 0 20px #ffffff;
+}
+th,
+td {
+  border: 1px solid #ffffff;
+  padding: 8px;
+  text-align: left;
+}
+th {
+  background-color: rgba(0, 212, 255, 0.1);
+}
+tr:hover {
+  background-color: rgba(0, 212, 255, 0.2);
+}
+/* --- BULLES (GÉRÉES PAR JS MAIS STYLE ICI) --- */
+.aero-bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(0, 212, 255, 0.1) 60%
+  );
+  box-shadow:
+    inset -5px -5px 15px rgba(255, 255, 255, 0.3),
+    0 0 20px rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(1px);
+  pointer-events: none;
+  z-index: -1;
+}
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-120vh) scale(1.5) rotate(360deg);
+  }
+}

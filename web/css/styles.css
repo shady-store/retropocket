@@ -1,233 +1,155 @@
-body {
-  background-color: black; /* Fond noir */
-  color: #00ff00; /* Texte vert fluo */
-  font-family:
-    "Courier New", Courier, monospace; /* Police de style informatique */
-  margin: 0;
-  padding: 20px;
-  overflow: hidden; /* Empêche le défilement */
-  position: relative; /* Nécessaire pour le positionnement absolu des gouttes de pluie */
-  height: 100vh;
+/* ==========================================================================
+   VARIABLES DE THÈME (MATRIX)
+   ========================================================================== */
+:root {
+  --bg-dark: #000000;
+  --accent-color: #00ff00;
+  --accent-glow: 0 0 12px rgba(0, 255, 0, 0.8);
+  --accent-dim: #001100;
+  --text-main: #00ff00;
+  --font-terminal: "Courier New", Courier, monospace;
 }
 
-.rain-container {
-  position: absolute; /* Positionnement absolu pour couvrir tout l'écran */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none; /* Permet d'interagir avec le contenu au-dessus */
-  z-index: 0; /* Met le conteneur de pluie derrière le contenu */
+/* ==========================================================================
+   BASE & LAYOUT
+   ========================================================================== */
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: var(--font-terminal);
+  margin: 0;
+  padding: 20px;
+  overflow: hidden;
+  position: relative;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+header h1 {
+  text-align: center;
+  font-size: 3em;
+  text-shadow: var(--accent-glow);
+  margin: 0 0 20px 0;
 }
 
 .container {
-  position: relative; /* Nécessaire pour le z-index */
-  z-index: 1; /* Met le contenu au-dessus de la pluie */
-  width: 80%;
-  background-color: #000000;
-  margin: auto;
-  border: 2px solid #00ff00; /* Bordure verte */
-  padding-top: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.5); /* Ombre verte */
-  height: 100%;
-  overflow-y: auto;
-}
-.center {
-  margin: auto;
-  display: block;
-}
-.hidden {
-  display: none;
-}
-.centerContent {
-  display: grid;
-  place-items: center;
-}
-.flex {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start; /* Aligne le haut des colonnes */
-}
-.settings-column {
-  display: flex;
-  flex-direction: column; /* FORCE l'empilement vertical (Titre, puis Label, puis Select) */
-  flex: 1; /* Partage l'espace équitablement */
-}
-/* Optionnel : un peu d'air entre les éléments de la colonne */
-.settings-column label,
-.settings-column select,
-.settings-column h3 {
-  display: block;
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-h1,
-h2 {
-  text-shadow: 0 0 10px #00ff00; /* Effet de lueur verte */
-}
-
-h1 {
-  font-size: 3em;
-  text-align: center;
-}
-
-h2 {
-  font-size: 2em;
-  margin-top: 20px;
-}
-
-a {
-  color: #00ff00; /* Liens verts */
-  text-decoration: none; /* Pas de soulignement */
-  transition: color 0.3s; /* Transition douce pour le changement de couleur */
-}
-
-a:hover {
-  color: #ffffff; /* Changement de couleur au survol */
-}
-input[type="text"],
-input[type="password"] {
-  background-color: black; /* Fond noir */
-  color: #00ff00; /* Texte vert */
-  border: 2px solid #00ff00; /* Bordure verte */
-  padding: 10px; /* Espacement interne */
-  width: calc(100% - 24px); /* Largeur avec espacement */
-  margin-top: 5px; /* Espacement au-dessus */
-  margin-bottom: 15px; /* Espacement en dessous */
-  font-family:
-    "Courier New", Courier, monospace; /* Police de style informatique */
-  font-size: 16px; /* Taille de police */
-  border-radius: 4px; /* Coins arrondis */
-  transition: border-color 0.3s; /* Transition douce pour la bordure */
-}
-
-input[type="text"]:focus,
-input[type="password"]:focus {
-  border-color: #ffffff; /* Changer la couleur de la bordure au focus */
-  outline: none; /* Supprimer le contour par défaut */
-}
-.matrix-button {
-  background-color: black;
-  color: #00ff00;
-  border: 2px solid #00ff00;
-  padding: 15px 30px;
-  font-size: 20px;
-  font-family: "Courier New", Courier, monospace;
-  cursor: pointer;
   position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
+  z-index: 1;
+  width: 90%;
+  max-width: 1200px;
+  background-color: rgba(0, 0, 0, 0.85); /* Transparence pour voir la pluie */
+  margin: auto;
+  border: 2px solid var(--accent-color);
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+  height: calc(100% - 60px);
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
-.matrix-button:hover {
+/* ==========================================================================
+   COMPOSANTS RTHEME (BOUTONS, INPUTS, RADIOS)
+   ========================================================================== */
+.rtheme-button {
+  background-color: black;
+  color: var(--accent-color);
+  border: 2px solid var(--accent-color);
+  padding: 12px 24px;
+  font-size: 1.1em;
+  font-family: var(--font-terminal);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 5px var(--accent-color);
+  text-transform: uppercase;
+}
+
+.rtheme-button:hover {
   color: black;
-  background-color: #00ff00;
+  background-color: var(--accent-color);
+  box-shadow: var(--accent-glow);
 }
 
-.matrix-button:focus {
-  outline: none;
-}
-.matrix-radio {
-  display: none; /* Cacher les boutons radio par défaut */
+.rtheme-button:active {
+  transform: scale(0.98);
 }
 
-.matrix-label {
+/* Cache l'input radio natif */
+.rtheme-radio {
+  display: none !important;
+}
+
+.radio-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.rtheme-label {
   cursor: pointer;
-  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  transition: background 0.3s;
 }
 
-.matrix-label::before {
-  display: inline-block;
+.rtheme-label:hover {
+  background: rgba(0, 255, 0, 0.15);
+}
+
+.rtheme-label::before {
   content: "";
-  width: 10px;
-  height: 10px;
-  background: black;
-  border: 2px solid #00ff00;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--accent-color);
   border-radius: 50%;
-  transition: background 0.3s ease;
+  margin-right: 12px;
+  background: black;
+  flex-shrink: 0;
 }
 
-.matrix-radio:checked + .matrix-label::before {
-  background: #00ff00;
+.rtheme-radio:checked + .rtheme-label::before {
+  background: var(--accent-color);
+  box-shadow: var(--accent-glow);
 }
 
-.matrix-label:hover {
-  background-color: rgba(0, 255, 0, 0.3);
-}
-
-.matrix-label:focus {
-  outline: none;
-}
-
-footer {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 0.8em;
-  color: #00ff00; /* Texte de pied de page vert */
-  text-shadow: 0 0 10px #00ff00; /* Effet de lueur verte */
-}
-
-/* Effet de pluie de code */
-@keyframes rain {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(100vh);
-  }
-}
-
-.rain {
-  position: absolute;
-  top: -10%; /* Commence au-dessus de l'écran */
-  width: 2px;
-  height: 20px;
-  background: rgba(0, 255, 0, 0.7); /* Couleur de la pluie */
-  animation: rain linear infinite; /* Animation de pluie */
-  z-index: 0; /* Assurez-vous que les gouttes de pluie sont derrière le contenu */
-}
+input[type="text"],
+input[type="password"],
 select {
-  background-color: #000; /* Fond noir */
-  color: #00ff00; /* Texte vert fluo */
-  border: 1px solid #00ff00; /* Bordure verte */
-  font-family: "Courier New", monospace; /* Police type terminal */
+  background-color: black;
+  color: var(--text-main);
+  border: 2px solid var(--accent-color);
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  font-family: var(--font-terminal);
   font-size: 16px;
-  padding: 8px 12px;
-  border-radius: 4px;
-  appearance: none; /* Supprime le style natif */
-  cursor: pointer;
-  box-shadow: 0 0 8px #00ff00; /* Lueur verte */
-  transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
-select:hover {
-  background-color: #001100;
+/* Sélecteur écran spécifique */
+#resolution-select {
+  width: auto;
+  min-width: 250px;
 }
 
-select:focus {
-  outline: none;
-  box-shadow: 0 0 12px #00ff00;
-}
-
-.matrix-toggle {
+/* ==========================================================================
+   INTERRUPTEURS (TOGGLES)
+   ========================================================================== */
+.rtheme-toggle {
   position: relative;
   display: inline-block;
   width: 60px;
-  height: 28px;
-  padding-top: 9px;
+  height: 30px;
+  flex-shrink: 0;
 }
 
-/* Cache la checkbox native */
-.matrix-toggle input {
+.rtheme-toggle input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-/* Piste du toggle */
 .slider {
   position: absolute;
   cursor: pointer;
@@ -235,91 +157,232 @@ select:focus {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #001100;
-  border: 2px solid #00ff00;
-  box-shadow: 0 0 8px #00ff00;
-  transition: 0.4s;
+  background-color: var(--accent-dim);
+  border: 2px solid var(--accent-color);
   border-radius: 34px;
+  transition: 0.4s;
+  box-shadow: 0 0 8px var(--accent-color);
 }
 
-/* Bouton circulaire */
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
+  height: 22px;
+  width: 22px;
   left: 4px;
-  bottom: 4px;
-  background-color: #00ff00;
-  box-shadow: 0 0 6px #00ff00;
+  bottom: 2px;
+  background-color: var(--accent-color);
+  box-shadow: 0 0 6px var(--accent-color);
   transition: 0.4s;
   border-radius: 50%;
 }
 
-/* État activé */
-input:checked + .slider {
-  background-color: #003300;
-  box-shadow: 0 0 12px #00ff00;
-}
-
 input:checked + .slider:before {
   transform: translateX(26px);
-  background-color: #00ff00;
-  box-shadow: 0 0 12px #00ff00;
 }
-/* Conteneur principal des options */
+
+/* ==========================================================================
+   ONGLETS & GRILLES (ALIGNEMENTS)
+   ========================================================================== */
+.rtheme-select {
+  background-color: black;
+  color: var(--accent-color);
+  border: 2px solid var(--accent-color);
+  font-family: var(--font-terminal);
+  font-size: 16px;
+  margin-left: 45px;
+  padding: 15px 5px; /* On enlève le padding latéral pour ne pas gêner le centrage */
+  width: 180px;
+  cursor: pointer;
+
+  /* On tente le combo maximal pour le centrage */
+  text-align: center;
+  text-align-last: center;
+  -moz-text-align-last: center; /* Pour Firefox */
+}
+
+/* Pour Chrome/Safari, on force l'alignement sur les options */
+.rtheme-select option {
+  text-align: center;
+  background-color: black;
+  color: var(--accent-color);
+}
 .grid-options {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  max-width: 190px; /* Ajuste selon tes préférences */
-  margin-bottom: 20px;
+  max-width: 190px;
+  margin-bottom: 25px;
 }
 
-/* Chaque ligne (Label + Switch) */
 .option-row {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Pousse le switch à l'extrémité droite */
+  justify-content: space-between;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 30px;
   width: 100%;
+  margin-top: 20px;
 }
 
-/* Style spécifique pour les labels des options */
-.option-row label[data-i18n] {
-  font-family: "Courier New", Courier, monospace; /* Pour le style Matrix */
-  color: #00ff00;
-  text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
-  margin-right: 20px;
-  cursor: pointer;
+.settings-column {
+  flex: 1;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
 }
 
-/* On s'assure que le toggle ne shrink pas */
-.matrix-toggle {
-  flex-shrink: 0;
+.settings-column h3 {
+  border-bottom: 1px solid var(--accent-color);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
 }
+
+.button-group {
+  display: flex;
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.centerContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+/* --- FORMULAIRE WIFI (Empilement vertical) --- */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-fields {
+  display: flex;
+  flex-direction: column; /* Force l'empilement Nom, Mot de passe, IP */
+  margin-top: 10px;
+}
+
+.input-fields label {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+/* On s'assure que le bouton soumettre ne fait pas toute la largeur 
+   sauf si tu le souhaites, sinon retire 'align-self' */
+form button[type="submit"] {
+  align-self: flex-start;
+  margin-top: 20px;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: var(--accent-color); /* Vert Matrix */
+  box-shadow: 0 0 10px var(--accent-color); /* L'effet néon */
+  margin: 20px 0;
+  opacity: 0.5;
+}
+/* --- FORMULAIRE WIFI (Empilement vertical) --- */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-fields {
+  display: flex;
+  flex-direction: column; /* Force l'empilement Nom, Mot de passe, IP */
+  margin-top: 10px;
+}
+
+.input-fields label {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+/* On s'assure que le bouton soumettre ne fait pas toute la largeur 
+   sauf si tu le souhaites, sinon retire 'align-self' */
+form button[type="submit"] {
+  align-self: flex-start;
+  margin-top: 20px;
+}
+
+hr {
+  width: 100%;
+  border: 0;
+  border-top: 1px solid var(--accent-dim);
+  margin: 20px 0;
+}
+
+/* ==========================================================================
+   FOOTER & LANGUES
+   ========================================================================== */
 footer .footer-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  font-size: 0.8em;
-  border-top: 1px solid var(--matrix-green); /* ou ta couleur */
+  padding: 15px 0;
+  margin-top: 20px;
+  border-top: 1px solid var(--accent-dim);
 }
 
 .lang-btn {
   background: none;
   border: none;
-  color: inherit;
+  color: var(--accent-color);
   cursor: pointer;
-  font-family: inherit;
-  padding: 0 5px;
+  font-family: var(--font-terminal);
+  font-size: 1em;
+  text-shadow: var(--accent-glow);
+  padding: 0 8px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .lang-btn:hover {
-  color: #00ff00;
-  text-shadow: 0 0 5px #00ff00;
+  color: #ffffff;
 }
 
-.separator {
-  color: #444;
+/* ==========================================================================
+   EFFET PLUIE (ANIMATION)
+   ========================================================================== */
+.rain-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.rain {
+  position: absolute;
+  top: -20px;
+  width: 2px;
+  height: 20px;
+  background: rgba(0, 255, 0, 0.4);
+  animation: rain-anim linear infinite;
+}
+
+@keyframes rain-anim {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(110vh);
+  }
+}
+
+/* Utilitaires */
+.center {
+  margin: auto;
+  display: block;
+}
+.hidden {
+  display: none;
 }

@@ -1,0 +1,98 @@
+:root {
+  --bg-dark: #0a0a12;
+  --accent-color: #ff00ff; /* Magenta Néon */
+  --accent-dim: #bc00bc;
+  --text-main: #00ffff; /* Cyan */
+  --font-terminal: "Courier New", monospace;
+  --accent-color: #ff00ff;
+  --accent-glow: #ff00ff;
+  --win-silver: #1a1a2e;
+  --win-white: #ff00ff;
+  --win-dark-gray: #00ffff;
+}
+
+/* --- FOND & CONTAINER --- */
+.rain-container {
+  background-color: var(--bg-dark) !important;
+  background-image:
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+    linear-gradient(
+      90deg,
+      rgba(255, 0, 0, 0.06),
+      rgba(0, 255, 0, 0.02),
+      rgba(0, 0, 255, 0.06)
+    ) !important;
+  background-size:
+    100% 2px,
+    3px 100% !important;
+}
+
+.container {
+  border: 3px solid var(--accent-color) !important;
+  box-shadow:
+    0 0 15px var(--accent-dim),
+    inset 0 0 10px var(--accent-dim) !important;
+  background: rgba(26, 26, 46, 0.9) !important;
+}
+
+/* --- ONGLET CYBERPUNK --- */
+.tab-button {
+  background: transparent !important;
+  color: var(--accent-color) !important;
+  border: 1px solid var(--accent-color) !important;
+  margin-right: 5px !important;
+  clip-path: polygon(
+    10% 0,
+    100% 0,
+    100% 70%,
+    90% 100%,
+    0 100%,
+    0% 30%
+  ); /* Forme découpée */
+}
+
+.tab-button.active {
+  background: var(--accent-color) !important;
+  color: #000 !important;
+  font-weight: bold !important;
+  box-shadow: 0 0 20px var(--accent-color) !important;
+}
+
+/* --- EFFET DE FOND (CYBER-GRID) --- */
+.cyber-grid-particle {
+  position: absolute;
+  height: 2px;
+  background: var(--text-main);
+  box-shadow: 0 0 8px var(--text-main);
+  opacity: 0.5;
+  animation: moveHorizontal linear infinite;
+}
+
+@keyframes moveHorizontal {
+  from {
+    transform: translateX(-100vw);
+  }
+  to {
+    transform: translateX(100vw);
+  }
+}
+table {
+  border-collapse: collapse;
+  margin: 20px auto;
+  box-shadow: 0 0 20px #ffffff;
+}
+th,
+td {
+  border: 1px solid #ffffff;
+  padding: 8px;
+  text-align: left;
+}
+th {
+  background-color: rgba(26, 26, 46, 0.1);
+}
+tr:hover {
+  background-color: rgba(26, 26, 46, 0.2);
+}
+.rtheme-label:hover {
+  background: rgba(255, 0, 255, 0.15);
+}

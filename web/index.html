@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/tabs.css" />
     <link rel="stylesheet" href="css/table.css" />
     <link rel="stylesheet" href="css/crt.css" />
+    <link id="dynamic-theme" rel="stylesheet" href="" />
 
     <script src="js/adapter.min.js" defer></script>
     <script src="js/janus.js" defer></script>
@@ -32,28 +33,28 @@
       <nav class="tabs">
         <button
           class="tab-button active"
-          onclick="openTab('screen');"
+          onclick="openTab('screen',this);"
           data-i18n="tabs_screen"
         >
           Écran
         </button>
         <button
           class="tab-button"
-          onclick="openTab('wifi');"
+          onclick="openTab('wifi',this);"
           data-i18n="tabs_wifi"
         >
           WiFi
         </button>
         <button
           class="tab-button"
-          onclick="openTab('bluetooth');"
+          onclick="openTab('bluetooth',this);"
           data-i18n="tabs_bluetooth"
         >
           Bluetooth
         </button>
         <button
           class="tab-button"
-          onclick="openTab('options');"
+          onclick="openTab('options',this);"
           data-i18n="tabs_options"
         >
           Options
@@ -100,14 +101,14 @@
             <div class="radio-group">
               <input
                 id="ap"
-                class="matrix-radio"
+                class="rtheme-radio"
                 type="radio"
                 name="mode"
                 value="AP"
                 checked
                 onclick="toggleInputs();"
               />
-              <label class="matrix-label" for="ap" data-i18n="wifi_mode_ap"
+              <label class="rtheme-label" for="ap" data-i18n="wifi_mode_ap"
                 >Point d'accès (Le retropocket fournit son point d'accès
                 wifi)</label
               >
@@ -115,14 +116,14 @@
             <div class="radio-group">
               <input
                 id="client"
-                class="matrix-radio"
+                class="rtheme-radio"
                 type="radio"
                 name="mode"
                 value="Client"
                 onclick="toggleInputs();"
               />
               <label
-                class="matrix-label"
+                class="rtheme-label"
                 for="client"
                 data-i18n="wifi_mode_client"
                 >Client (Le retropocket se connecte à un point d'accès
@@ -154,7 +155,7 @@
               />
             </div>
 
-            <button type="submit" class="matrix-button" data-i18n="wifi_submit">
+            <button type="submit" class="rtheme-button" data-i18n="wifi_submit">
               Soumettre
             </button>
           </form>
@@ -166,7 +167,7 @@
             hx-get="/bluetooth"
             hx-target="#bluetooth-devices"
             hx-indicator="#indicator"
-            class="matrix-button"
+            class="rtheme-button"
             data-i18n="bt_refresh"
           >
             ↻ Rafraîchir
@@ -193,7 +194,7 @@
               <label data-i18n="opt_rain" for="effetPluieSlider"
                 >Effet Pluie</label
               >
-              <label class="matrix-toggle">
+              <label class="rtheme-toggle">
                 <input type="checkbox" id="effetPluieSlider" checked />
                 <span class="slider"></span>
               </label>
@@ -201,10 +202,24 @@
 
             <div class="option-row">
               <label data-i18n="opt_crt" for="effetCrtSlider">Effet CRT</label>
-              <label class="matrix-toggle">
+              <label class="rtheme-toggle">
                 <input type="checkbox" id="effetCrtSlider" checked />
                 <span class="slider"></span>
               </label>
+            </div>
+            <div class="option-row">
+              <label for="theme-selector">Interface &nbsp;</label>
+              <select
+                id="theme-selector"
+                class="rtheme-select"
+                onchange="changeTheme(this.value)"
+              >
+                <option value="matrix">Matrix (Default)</option>
+                <option value="win95">Windows 95</option>
+                <option value="cyberpunk">Cyberpunk Red</option>
+                <option value="aero-dark">Dark Aero 2007</option>
+                <option value="aero">Aero 2007</option>
+              </select>
             </div>
           </div>
           <hr />
@@ -213,14 +228,14 @@
           <div class="button-group">
             <button
               hx-post="/shutdown"
-              class="matrix-button"
+              class="rtheme-button"
               data-i18n="cmd_shutdown"
             >
               ⏻ Eteindre
             </button>
             <button
               hx-post="/shutdown?reboot=true"
-              class="matrix-button"
+              class="rtheme-button"
               data-i18n="cmd_reboot"
             >
               ↻ Redémarrer
@@ -287,7 +302,7 @@
               <div class="action-container" style="margin-top: 20px">
                 <button
                   id="save-config-btn"
-                  class="matrix-button"
+                  class="rtheme-button"
                   data-i18n="param_save"
                 >
                   Enregistrer

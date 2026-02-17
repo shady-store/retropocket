@@ -1,0 +1,276 @@
+/* ==========================================================================
+   THEME WINDOWS 95 FINAL V3 - RETROPOCKET
+   ========================================================================== */
+
+:root {
+  --win-silver: #c0c0c0;
+  --win-white: #ffffff;
+  --win-dark-gray: #808080;
+  --win-black: #000000;
+  --win-blue-title: linear-gradient(90deg, #000080, #1084d0);
+
+  --bg-dark: #008080;
+  --accent-color: #000000;
+  --accent-glow: none;
+  --accent-dim: #808080;
+  --text-main: #000000;
+  --font-terminal: "Tahoma", "Segoe UI", Arial, sans-serif;
+
+  --tabs-justify: flex-start;
+  --tabs-gap: 0px;
+}
+
+* {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transition: none !important;
+}
+
+/* --- BASE --- */
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+}
+
+.container {
+  background-color: var(--win-silver);
+  border: 2px solid !important;
+  border-color: var(--win-white) var(--win-dark-gray) var(--win-dark-gray)
+    var(--win-white) !important;
+  padding: 4px !important;
+  width: 95%;
+  height: auto;
+}
+
+header h1 {
+  background: var(--win-blue-title);
+  color: white;
+  text-align: left !important;
+  font-size: 1.1em !important;
+  padding: 4px 8px !important;
+  margin: 0 !important;
+}
+
+/* --- SYSTÈME D'ONGLETS (ALIGNE ET CORRIGE LE GRAS) --- */
+.tabs {
+  display: flex !important;
+  justify-content: flex-start !important;
+  padding: 10px 10px 0 10px !important;
+  background-color: var(--win-silver);
+  /* On enlève la bordure ici et on la gère sur le main */
+  border-bottom: none !important;
+  margin-bottom: 0 !important;
+}
+
+.tab-button {
+  margin: 0 !important;
+  border: 2px solid !important;
+  border-color: var(--win-white) var(--win-dark-gray) var(--win-silver)
+    var(--win-white) !important;
+  border-radius: 4px 4px 0 0 !important;
+  font-size: 14px !important;
+  padding: 4px 12px !important;
+  background-color: var(--win-silver) !important;
+  color: var(--win-black) !important;
+  position: relative;
+  z-index: 1;
+  font-weight: normal !important; /* Par défaut pas gras */
+}
+
+/* Correction du bug Wifi : On force le gras sur n'importe quel onglet actif */
+.tab-button.active {
+  font-weight: bold !important; /* Le !important règle le souci du Wifi */
+  margin-top: -2px !important;
+  margin-bottom: -2px !important;
+  border-bottom: 2px solid var(--win-silver) !important;
+  padding-top: 6px !important;
+}
+
+/* On remet la bordure blanche UNIQUEMENT sur le haut du main */
+main {
+  background-color: var(--win-silver);
+  border: 2px solid;
+  border-color: var(--win-white) var(--win-dark-gray) var(--win-dark-gray)
+    var(--win-white);
+  /* Pas besoin de border-top: none ici, on va laisser l'onglet actif le recouvrir */
+  padding: 20px;
+  margin: 0 10px 10px 10px;
+  position: relative;
+  margin-top: 0 !important;
+}
+
+/* --- FORMULAIRES & INPUTS --- */
+input[type="text"],
+input[type="password"],
+select {
+  background-color: var(--win-white) !important;
+  color: var(--win-black) !important;
+  border: 2px solid !important;
+  border-color: var(--win-dark-gray) var(--win-white) var(--win-white)
+    var(--win-dark-gray) !important;
+  border-radius: 0 !important;
+  padding: 4px !important;
+}
+
+/* --- SLIDERS CARRÉS --- */
+.rtheme-toggle {
+  width: 50px !important;
+  height: 24px !important;
+}
+.slider {
+  border-radius: 0 !important;
+  background-color: var(--win-dark-gray) !important;
+  border: 2px solid !important;
+  border-color: var(--win-black) var(--win-white) var(--win-white)
+    var(--win-black) !important;
+}
+.slider:before {
+  border-radius: 0 !important;
+  height: 16px !important;
+  width: 16px !important;
+  left: 2px !important;
+  bottom: 2px !important;
+  background-color: var(--win-silver) !important;
+  border: 2px solid !important;
+  border-color: var(--win-white) var(--win-dark-gray) var(--win-dark-gray)
+    var(--win-white) !important;
+}
+input:checked + .slider {
+  background-color: #008080 !important;
+}
+input:checked + .slider:before {
+  transform: translateX(24px) !important;
+}
+
+/* --- RADIOS --- */
+.rtheme-label::before {
+  border-radius: 50% !important;
+  background-color: var(--win-white) !important;
+  border: 2px solid !important;
+  border-color: var(--win-dark-gray) var(--win-white) var(--win-white)
+    var(--win-dark-gray) !important;
+}
+.rtheme-radio:checked + .rtheme-label::before {
+  background-image: radial-gradient(
+    circle,
+    var(--win-black) 40%,
+    transparent 45%
+  ) !important;
+}
+/* --- FOCUS SUR LE LABEL RADIO --- */
+
+/* On prépare le label pour accueillir le rectangle */
+.rtheme-label {
+  position: relative;
+  padding-left: 25px; /* Espace pour le cercle radio */
+  padding-right: 4px;
+  display: inline-block;
+}
+
+/* On dessine les pointillés uniquement quand l'input radio est coché */
+.rtheme-radio:checked + .rtheme-label::after {
+  content: "";
+  position: absolute;
+  /* On ajuste pour entourer seulement le texte, pas le cercle radio */
+  top: 0;
+  left: 22px;
+  right: 0;
+  bottom: 0;
+  border: 1px dotted var(--win-black);
+  pointer-events: none;
+}
+/* --- LE FOCUS RECTANGLE (POINTILLÉS) --- */
+.tab-button.active::after {
+  content: "";
+  position: absolute;
+  /* On décale de 2px ou 3px pour que les pointillés soient à l'intérieur du bouton */
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  border: 1px dotted var(--win-black);
+  pointer-events: none; /* Pour que le clic passe à travers */
+}
+
+/* Optionnel : si tu veux aussi les pointillés sur les boutons classiques quand on clique */
+.rtheme-button:focus::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  border: 1px dotted var(--win-black);
+}
+
+/* S'assurer que le bouton est en position relative pour que le pseudo-élément se place bien */
+.rtheme-button {
+  position: relative;
+}
+/* --- TABLEAUX --- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--win-white) !important;
+  color: var(--win-black) !important;
+  border: 2px solid var(--win-dark-gray) !important;
+}
+th,
+td {
+  border: 1px solid var(--win-silver) !important;
+  padding: 6px !important;
+}
+th {
+  background-color: var(--win-silver) !important;
+  border: 2px solid !important;
+  border-color: var(--win-white) var(--win-dark-gray) var(--win-dark-gray)
+    var(--win-white) !important;
+}
+tr:hover {
+  background-color: rgba(0, 128, 128, 0.8);
+}
+
+/* --- BOUTONS --- */
+.rtheme-button {
+  background-color: var(--win-silver) !important;
+  color: var(--win-black) !important;
+  border-color: var(--win-white) var(--win-dark-gray) var(--win-dark-gray)
+    var(--win-white) !important;
+  border-radius: 0 !important;
+  text-transform: none !important;
+}
+.rtheme-button:active {
+  border-color: var(--win-dark-gray) var(--win-white) var(--win-white)
+    var(--win-dark-gray) !important;
+}
+@keyframes warpSpeed {
+  0% {
+    transform: translate(-50%, -50%) scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    /* Utilise les variables JS pour la direction et la rotation finale */
+    transform: translate(var(--tx), var(--ty)) scale(3) rotate(var(--rot));
+    opacity: 0;
+  }
+}
+
+.win-logo-particle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  background-image: url("../img/win95.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  animation: warpSpeed linear infinite;
+  will-change: transform, opacity;
+}
+.rtheme-label:hover {
+  background: rgba(0, 0, 0, 0);
+}

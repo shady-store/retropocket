@@ -21,7 +21,7 @@
       <td>{{status}}</td>
       <td>
         <button
-          class="matrix-button {{connect-class}}"
+          class="rtheme-button {{connect-class}}"
           hx-put="/bluetooth?mac={{mac}}&action=connect"
           hx-indicator="#indicator"
           data-i18n="bt_btn_connect"
@@ -30,7 +30,7 @@
         </button>
 
         <button
-          class="matrix-button {{disconnect-class}}"
+          class="rtheme-button {{disconnect-class}}"
           hx-put="/bluetooth?mac={{mac}}&action=disconnect"
           hx-indicator="#indicator"
           data-i18n="bt_btn_disconnect"
@@ -39,7 +39,7 @@
         </button>
 
         <button
-          class="matrix-button {{add-class}}"
+          class="rtheme-button {{add-class}}"
           hx-post="/bluetooth?mac={{mac}}"
           hx-indicator="#indicator"
           data-i18n="bt_btn_add"
@@ -48,7 +48,7 @@
         </button>
 
         <button
-          class="matrix-button {{delete-class}}"
+          class="rtheme-button {{delete-class}}"
           hx-delete="/bluetooth?mac={{mac}}"
           hx-indicator="#indicator"
           data-i18n="bt_btn_delete"

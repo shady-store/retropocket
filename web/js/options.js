@@ -5,7 +5,8 @@ toggle.addEventListener("change", function () {
   } else {
     effetPluie = false;
   }
-  doRain();
+  const savedTheme = localStorage.getItem("preferred-theme") || "matrix";
+  doRain(savedTheme);
 });
 const toggleCrt = document.getElementById("effetCrtSlider");
 toggleCrt.addEventListener("change", function () {
@@ -54,4 +55,26 @@ document.addEventListener("DOMContentLoaded", () => {
 document.body.addEventListener("htmx:afterSwap", () => {
   const currentLang = localStorage.getItem("preferred_lang") || "fr";
   applyTranslations(currentLang);
+});
+function changeTheme(themeName) {
+  const themeLink = document.getElementById("dynamic-theme");
+
+  if (themeName === "matrix") {
+    // Pour Matrix, on vide le lien dynamique (le CSS de base reprend le dessus)
+    themeLink.href = "";
+  } else {
+    // Pour les autres, on charge le fichier correspondant
+    themeLink.href = `css/theme-${themeName}.css`;
+  }
+
+  // Sauvegarde pour le prochain chargement
+  localStorage.setItem("preferred-theme", themeName);
+  doRain(themeName);
+}
+
+// Au chargement de la page
+window.addEventListener("DOMContentLoaded", () => {
+  const savedTheme = localStorage.getItem("preferred-theme") || "matrix";
+  document.getElementById("theme-selector").value = savedTheme;
+  changeTheme(savedTheme);
 });

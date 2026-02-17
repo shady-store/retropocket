@@ -1,0 +1,87 @@
+:root {
+  --aero-green: #39ff14; /* Vert néon organique */
+  --aero-dark: #050505;
+  --glass-border: rgba(255, 255, 255, 0.2);
+}
+
+/* --- LE FOND NOIR PROFOND --- */
+.rain-container {
+  background: radial-gradient(
+    circle at center,
+    #1a1a1a 0%,
+    #000000 100%
+  ) !important;
+}
+
+/* --- LE CONTAINER AVEC DOUBLE BORDURE TRANSPARENTE --- */
+.container {
+  background: rgba(0, 0, 0, 0.6) !important; /* Noir translucide */
+  backdrop-filter: blur(20px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+
+  /* La bordure vitrée dont tu parlais */
+  border: 8px solid rgba(255, 255, 255, 0.05) !important;
+  outline: 1px solid rgba(255, 255, 255, 0.2) !important;
+
+  border-radius: 30px !important;
+  box-shadow: 0 20px 50px rgba(0, 255, 0, 0.1) !important;
+  position: relative;
+}
+
+/* --- LES BOUTONS VERTS GLOSSY (Effet Bonbon) --- */
+.tab-button {
+  background: linear-gradient(
+    180deg,
+    rgba(57, 255, 20, 0.4) 0%,
+    rgba(57, 255, 20, 0.1) 50%,
+    rgba(0, 0, 0, 0.3) 100%
+  ) !important;
+  border: 1px solid var(--aero-green) !important;
+  border-radius: 12px !important;
+  color: white !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 5px var(--aero-green);
+}
+
+.tab-button.active {
+  background: var(--aero-green) !important;
+  color: black !important;
+  box-shadow:
+    0 0 20px var(--aero-green),
+    inset 0 2px 10px white !important;
+  font-weight: bold !important;
+}
+
+/* --- LE SELECTOR --- */
+.rtheme-select {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid var(--aero-green) !important;
+  color: var(--aero-green) !important;
+  border-radius: 10px !important;
+  backdrop-filter: blur(10px);
+}
+.aero-bubble {
+  position: absolute;
+  border-radius: 50%;
+  /* Reflet vert sur fond noir */
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(57, 255, 20, 0.4),
+    rgba(57, 255, 20, 0.05)
+  );
+  box-shadow:
+    inset -2px -2px 8px rgba(255, 255, 255, 0.2),
+    0 0 10px rgba(57, 255, 20, 0.2);
+  pointer-events: none;
+  will-change: transform;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-120vh) scale(1.5) rotate(360deg);
+  }
+}
