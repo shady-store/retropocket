@@ -3,16 +3,14 @@ network:
   renderer: NetworkManager
   wifis:
     wlan0:
-      {{#ipaddr}}
-      addresses: [{{ipaddr}}/24]
-      dhcp4: false
-      {{/ipaddr}}
-      {{^ipaddr}}
       dhcp4: true
-      {{/ipaddr}}
-      dhcp6: false
+      optional: true
       access-points:
         "{{apname}}":
           auth:
-            key-management: "psk"
+            key-management: psk
             password: "{{appassword}}"
+          mode: ap
+          {{#band}}
+          band: "{{band}}"
+          {{/band}}

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 1. Chargement et nettoyage de la configuration
-CONF="/boot/retropocket.conf"
+CONF="/home/retropocket/sdcard/retropocket.conf"
 if [ -f "$CONF" ]; then
   sed 's/\r$//' "$CONF" >/tmp/rp.conf && source /tmp/rp.conf
 else
@@ -24,7 +24,6 @@ echo "$SUDOMDP" | sudo -S chmod 777 /dev/tty*
 video_watchdog() {
   echo "Watchdog Vidéo activé."
   while true; do
-    # On cherche le ffmpeg qui utilise kmsgrab
     if ! pgrep -f "ffmpeg.*kmsgrab" >/dev/null; then
       echo "[Watchdog Video] Relancement..."
       echo "$SUDOMDP" | sudo -S ffmpeg -f kmsgrab -device "$VIDEO_DEVICE" -framerate "$VIDEO_FPS" -i - \
@@ -40,7 +39,6 @@ video_watchdog() {
 audio_watchdog() {
   echo "Watchdog Audio activé."
   while true; do
-    # On cherche le ffmpeg qui utilise pulse
     if ! pgrep -f "ffmpeg.*pulse" >/dev/null; then
       echo "[Watchdog Audio] Relancement..."
       export PULSE_LATENCY_MSEC="$AUDIO_LATENCY"
@@ -56,16 +54,25 @@ audio_watchdog() {
 }
 
 # 5. Lancement des services en arrière-plan
-echo "Démarrage Bluetooth..."
-echo "$SUDOMDP" | sudo -S "$BLUETOOTH_SCRIPT" &
+#echo "Démarrage Bluetooth..."
+#echo "$SUDOMDP" | sudo -S "$BLUETOOTH_SCRIPT" &
 
 echo "Démarrage Backend d'administration..."
 cd "$(dirname "$BACKEND_BIN")"
 echo "$SUDOMDP" | sudo -S "$BACKEND_BIN" >/dev/tty4 2>&1 &
 
-# 6. Activation des Watchdogs
-video_watchdog &
-audio_watchdog &
+# 6. Activation des Watchdogs (Conditionnelle)
+if [ "$ENABLE_VIDEO" = true ]; then
+  video_watchdog &
+else
+  echo "Vidéo désactivée dans la config."
+fi
+
+if [ "$ENABLE_AUDIO" = true ]; then
+  audio_watchdog &
+else
+  echo "Audio désactivé dans la config."
+fi
 
 # 7. Lancement de l'interface principale (Bloquant)
 echo "Démarrage de l'interface..."

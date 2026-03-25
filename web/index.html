@@ -153,6 +153,12 @@
                 name="ipaddr"
                 placeholder="192.168.x.x"
               />
+              <label for="frequency" data-i18n="wifi_freq">Frequence</label>
+              <select id="frequency" name="frequency">
+                <option value="2.4GHz">2.4GHz</option>
+                <option value="5GHz">5GHz</option>
+                <option value="auto" selected>auto</option>
+              </select>
             </div>
 
             <button type="submit" class="rtheme-button" data-i18n="wifi_submit">
@@ -248,11 +254,24 @@
           <div class="flex">
             <div class="settings-column">
               <h3 data-i18n="param_video">Capture Vidéo</h3>
+              <label for="video-capture-activation" data-i18n="param_vca"
+                >Capture</label
+              >
+              <select
+                id="video-capture-activation"
+                name="video-capture-activation"
+              >
+                <option value="on" selected>on</option>
+                <option value="off">off</option>
+              </select>
 
               <label for="resolution-capture-select" data-i18n="param_res"
                 >Résolution</label
               >
-              <select id="resolution-capture-select">
+              <select
+                id="resolution-capture-select"
+                name="resolution-capture-select"
+              >
                 <option value="617x360">617×360</option>
                 <option value="640x360">640×360</option>
                 <option value="640x480">640×480</option>
@@ -268,7 +287,7 @@
               <label for="fps-capture-select" data-i18n="param_fps"
                 >Images par seconde</label
               >
-              <select id="fps-capture-select">
+              <select id="fps-capture-select" name="fps-capture-select">
                 <option value="30">30 FPS</option>
                 <option value="60" selected>60 FPS</option>
               </select>
@@ -276,7 +295,7 @@
               <label for="bitrate-capture-select" data-i18n="param_bitrate"
                 >Bitrate Vidéo</label
               >
-              <select id="bitrate-capture-select">
+              <select id="bitrate-capture-select" name="bitrate-capture-select">
                 <option value="4M">4M (Haute)</option>
                 <option value="2M" selected>2M (Standard)</option>
                 <option value="1M">1M (Eco)</option>
@@ -285,7 +304,7 @@
               <label for="buf-capture-select" data-i18n="param_buf"
                 >Tampon (Buffer)</label
               >
-              <select id="buf-capture-select">
+              <select id="buf-capture-select" name="buf-capture-select">
                 <option value="250k">250k</option>
                 <option value="500k" selected>500k</option>
                 <option value="1M">1M</option>
@@ -294,7 +313,7 @@
               <label for="gop-capture-select" data-i18n="param_gop"
                 >GOP (Images clés)</label
               >
-              <select id="gop-capture-select">
+              <select id="gop-capture-select" name="gop-capture-select">
                 <option value="30" selected>30</option>
                 <option value="60">60</option>
               </select>
@@ -302,6 +321,7 @@
               <div class="action-container" style="margin-top: 20px">
                 <button
                   id="save-config-btn"
+                  hx-post="/options"
                   class="rtheme-button"
                   data-i18n="param_save"
                 >
@@ -312,11 +332,21 @@
 
             <div class="settings-column">
               <h3 data-i18n="param_audio">Capture Audio</h3>
+              <label for="audio-capture-activation" data-i18n="param_aca"
+                >Capture</label
+              >
+              <select
+                id="audio-capture-activation"
+                name="audio-capture-activation"
+              >
+                <option value="on" selected>on</option>
+                <option value="off">off</option>
+              </select>
 
               <label for="audio-latency-select" data-i18n="param_lat"
                 >Latence (ms)</label
               >
-              <select id="audio-latency-select">
+              <select id="audio-latency-select" name="audio-latency-select">
                 <option value="10">10ms</option>
                 <option value="5" selected>5ms</option>
                 <option value="2">2ms (Instable)</option>
@@ -327,7 +357,10 @@
                 data-i18n="param_abitrate"
                 >Bitrate Audio</label
               >
-              <select id="audiobitrate-latency-select">
+              <select
+                id="audiobitrate-latency-select"
+                name="audiobitrate-latency-select"
+              >
                 <option value="96k">96k</option>
                 <option value="64k" selected>64k</option>
                 <option value="32k">32k</option>
@@ -338,7 +371,10 @@
                 data-i18n="param_sample"
                 >Samplerate</label
               >
-              <select id="audiosamplerate-latency-select">
+              <select
+                id="audiosamplerate-latency-select"
+                name="audiosamplerate-latency-select"
+              >
                 <option value="48000" selected>48000 Hz</option>
                 <option value="44100">44100 Hz</option>
                 <option value="24000">24000 Hz</option>
@@ -347,7 +383,7 @@
               <label for="audio-frame-dur-select" data-i18n="param_dur"
                 >Frame Duration</label
               >
-              <select id="audio-frame-dur-select">
+              <select id="audio-frame-dur-select" name="audio-frame-dur-select">
                 <option value="10">10ms (Ultra-Low)</option>
                 <option value="20" selected>20ms (Recommandé)</option>
                 <option value="40">40ms (Stable)</option>
@@ -360,7 +396,7 @@
               <label for="governor-select" data-i18n="param_gov"
                 >Mode Performance</label
               >
-              <select id="governor-select">
+              <select id="governor-select" name="governor-select">
                 <option value="performance" selected>Performance</option>
                 <option value="schedutil">Adaptatif</option>
               </select>
@@ -368,14 +404,32 @@
               <label for="read-ahead-select" data-i18n="param_sd"
                 >Optimisation SD</label
               >
-              <select id="read-ahead-select">
+              <select id="read-ahead-select" name="read-ahead-select">
                 <option value="1024">1024 (Normal)</option>
                 <option value="2048" selected>2048 (Rapide)</option>
                 <option value="4096">4096 (Max)</option>
               </select>
+              <label for="janus-select" data-i18n="param_janus">Janus</label>
+              <select id="janus-select" name="janus-select">
+                <option value="on" selected>on</option>
+                <option value="off">off</option>
+              </select>
+              <label for="samba-select" data-i18n="param_samba">Samba</label>
+              <select id="samba-select" name="samba-select">
+                <option value="on" selected>on</option>
+                <option value="off">off</option>
+              </select>
+              <label for="iface-select" data-i18n="param_iface"
+                >Interface</label
+              >
+              <select id="iface-select" name="iface-select">
+                <option value="/usr/local/bin/emulationstation" selected>
+                  emulationstation
+                </option>
+                <option value="/usr/bin/retroarch">retroarch</option>
+              </select>
             </div>
           </div>
-
           <hr />
           <div hx-get="/update" hx-trigger="load"></div>
         </section>

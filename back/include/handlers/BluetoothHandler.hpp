@@ -10,7 +10,7 @@ class BluetoothHandler
     static const crow::response handleGetAllDevices(const crow::request &req)
     {
         crow::mustache::context ctx;
-        auto bluetoothTableTpl = crow::mustache::load("bluetoothTableTpl.mustache.html");
+        auto bluetoothTableTpl = crow::mustache::load("bluetooth.mustache.html");
         ctx["devices"] = Tools::convertListToWValue(Bluetooth::getAllDevices());
         return bluetoothTableTpl.render(ctx);
     }

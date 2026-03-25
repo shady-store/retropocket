@@ -17,9 +17,15 @@ class WifiHandler
         if (mode == "AP")
         {
             crow::mustache::context ctx;
-            auto apptpl = crow::mustache::load("ap.yaml");
+            auto apptpl = crow::mustache::load("ap.mustache.yaml");
             ctx["apname"] = "retropocket";
             ctx["appassword"] = "retro1234!";
+            std::string freq = req.get_body_params().get("frequency");
+            CROW_LOG_DEBUG << "Band : " << freq;
+            if (freq != "auto")
+            {
+                ctx["band"] = freq;
+            }
             std::string rendered = apptpl.render(ctx).dump();
             CROW_LOG_DEBUG << rendered.c_str();
             if (!System::writeFile(rendered, "/etc/netplan/wifi.yaml"))
@@ -33,14 +39,20 @@ class WifiHandler
             std::string ssid = req.get_body_params().get("ssid");
             std::string password = req.get_body_params().get("password");
             std::string ipaddr = req.get_body_params().get("ipaddr");
+            std::string freq = req.get_body_params().get("frequency");
 
             CROW_LOG_DEBUG << "SSID : " << ssid;
             CROW_LOG_DEBUG << "Password : " << password;
             CROW_LOG_DEBUG << "Address : " << ipaddr;
+            CROW_LOG_DEBUG << "Band : " << freq;
 
             crow::mustache::context ctx;
             ctx["apname"] = ssid;
             ctx["appassword"] = password;
+            if (freq != "auto")
+            {
+                ctx["band"] = freq;
+            }
             if (ipaddr != "")
             {
                 if (isValidIPAddress(ipaddr))
@@ -50,7 +62,7 @@ class WifiHandler
                     retour.body = "Erreur adresse ip invalide, le mode automatique sera appliqué";
                 }
             }
-            auto clienttpl = crow::mustache::load("client.yaml");
+            auto clienttpl = crow::mustache::load("client.mustache.yaml");
             std::string rendered = clienttpl.render(ctx).dump();
             CROW_LOG_DEBUG << rendered.c_str();
             if (!System::writeFile(rendered, "/etc/netplan/wifi.yaml"))

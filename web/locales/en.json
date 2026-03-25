@@ -14,6 +14,7 @@
   "wifi_ssid": "Access Point Name (SSID):",
   "wifi_password": "Password:",
   "wifi_ip": "IP Address (Leave blank for DHCP/Auto)",
+  "wifi_freq": "Frequency",
   "wifi_submit": "Submit",
 
   "bt_title": "Bluetooth",
@@ -29,6 +30,8 @@
 
   "param_title": "Settings",
   "param_video": "Video Capture",
+  "param_vca": "Capture",
+  "param_aca": "Capture",
   "param_res": "Resolution",
   "param_fps": "Frames Per Second",
   "param_bitrate": "Video Bitrate",
@@ -45,6 +48,9 @@
   "param_sys": "System",
   "param_gov": "Performance Mode",
   "param_sd": "SD Card Optimization",
+  "param_janus": "Janus",
+  "param_samba": "Samba",
+  "param_iface": "Interface",
 
   "bt_table_name": "Name",
   "bt_table_mac": "MAC Address",
