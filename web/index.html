@@ -33,28 +33,28 @@
       <nav class="tabs">
         <button
           class="tab-button active"
-          onclick="openTab('screen',this);"
+          onclick="openTab('screen', this)"
           data-i18n="tabs_screen"
         >
           Écran
         </button>
         <button
           class="tab-button"
-          onclick="openTab('wifi',this);"
+          onclick="openTab('wifi', this)"
           data-i18n="tabs_wifi"
         >
           WiFi
         </button>
         <button
           class="tab-button"
-          onclick="openTab('bluetooth',this);"
+          onclick="openTab('bluetooth', this)"
           data-i18n="tabs_bluetooth"
         >
           Bluetooth
         </button>
         <button
           class="tab-button"
-          onclick="openTab('options',this);"
+          onclick="openTab('options', this)"
           data-i18n="tabs_options"
         >
           Options
@@ -106,7 +106,7 @@
                 name="mode"
                 value="AP"
                 checked
-                onclick="toggleInputs();"
+                onclick="toggleInputs()"
               />
               <label class="rtheme-label" for="ap" data-i18n="wifi_mode_ap"
                 >Point d'accès (Le retropocket fournit son point d'accès
@@ -120,7 +120,7 @@
                 type="radio"
                 name="mode"
                 value="Client"
-                onclick="toggleInputs();"
+                onclick="toggleInputs()"
               />
               <label
                 class="rtheme-label"
@@ -322,6 +322,7 @@
                 <button
                   id="save-config-btn"
                   hx-post="/options"
+                  hx-include=".settings-column select[name]"
                   class="rtheme-button"
                   data-i18n="param_save"
                 >
@@ -423,10 +424,10 @@
                 >Interface</label
               >
               <select id="iface-select" name="iface-select">
-                <option value="/usr/local/bin/emulationstation" selected>
+                <option value="emulationstation" selected>
                   emulationstation
                 </option>
-                <option value="/usr/bin/retroarch">retroarch</option>
+                <option value="retroarch">retroarch</option>
               </select>
             </div>
           </div>
