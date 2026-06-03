@@ -22,13 +22,7 @@ async function applyTranslations(lang) {
     document.querySelectorAll("[data-i18n]").forEach((el) => {
       const key = el.getAttribute("data-i18n");
       if (translations[key]) {
-        // Si c'est un bouton avec une icône, on essaie de préserver l'icône
-        if (el.innerText.includes("↻") || el.innerText.includes("⏻")) {
-          const icon = el.innerText.split(" ")[0];
-          el.innerText = `${icon} ${translations[key].replace(/^[↻⏻]\s*/, "")}`;
-        } else {
-          el.innerText = translations[key];
-        }
+        el.innerText = translations[key];
       }
     });
 

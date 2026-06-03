@@ -15,8 +15,8 @@ int main(int argc, char *argv[])
     CROW_ROUTE(app, "/bluetooth").methods(crow::HTTPMethod::Delete)(BluetoothHandler::handleRemoveDevice);
 
     CROW_ROUTE(app, "/wifi").methods(crow::HTTPMethod::Post)(WifiHandler::handleWifi);
-    CROW_ROUTE(app, "/update").methods(crow::HTTPMethod::Get)(UpdateHandler::handleUpdate);
-    CROW_ROUTE(app, "/update").methods(crow::HTTPMethod::Post)(UpdateHandler::handleDoUpdate);
+    // CROW_ROUTE(app, "/update").methods(crow::HTTPMethod::Get)(UpdateHandler::handleUpdate);
+    // CROW_ROUTE(app, "/update").methods(crow::HTTPMethod::Post)(UpdateHandler::handleDoUpdate);
 
     CROW_ROUTE(app, "/shutdown").methods(crow::HTTPMethod::Post)(SystemHandler::handleShutdown);
     CROW_ROUTE(app, "/options").methods(crow::HTTPMethod::Post)(SystemHandler::handleOptions);

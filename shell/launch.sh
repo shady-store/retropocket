@@ -8,6 +8,16 @@ else
   echo "ERREUR : Fichier de config introuvable !" && exit 1
 fi
 
+if [ -f /home/retropocket/sdcard/.reset ]; then
+  echo "--- Reset systeme detecte ---"
+  rm /home/retropocket/sdcard/.reset
+  rsync -a --delete /home/retropocket/sdcard/dev/retropocket/ /home/retropocket/retropocket
+  echo "$SUDOMDP" | sudo -S cp /home/retropocket/sdcard/dev/retropocket/network/wifi.yaml /etc/netplan/
+  sleep 3
+  echo "$SUDOMDP" | sudo -S netplan apply
+  echo "--- Reset effectue---"
+fi
+
 echo "--- Initialisation Retropocket (Dual Watchdog Mode) ---"
 
 # 2. Optimisations Hardware

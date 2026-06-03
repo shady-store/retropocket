@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/root/retropocket/build-aarch64",
+  "command": "/bin/aarch64-linux-gnu-g++ -DASIO_STANDALONE -I/root/retropocket/back/lib -I/root/retropocket/back/include -isystem /usr/local/include -march=armv8-a+crc+crypto -mtune=cortex-a55 -g -std=gnu++20 -o CMakeFiles/retropocket-back.dir/main.cpp.o -c /root/retropocket/back/main.cpp",
+  "file": "/root/retropocket/back/main.cpp",
+  "output": "CMakeFiles/retropocket-back.dir/main.cpp.o"
+}
+]

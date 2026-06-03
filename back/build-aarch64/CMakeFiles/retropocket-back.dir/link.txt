@@ -1,0 +1,1 @@
+/bin/aarch64-linux-gnu-g++ -march=armv8-a+crc+crypto -mtune=cortex-a55 -g -Wl,--dependency-file=CMakeFiles/retropocket-back.dir/link.d "CMakeFiles/retropocket-back.dir/main.cpp.o" -o retropocket-back  /usr/lib/aarch64-linux-gnu/libssl.so /usr/lib/aarch64-linux-gnu/libcrypto.so -lpthread -ldl

@@ -232,20 +232,8 @@
 
           <h2 data-i18n="cmd_title">Commandes</h2>
           <div class="button-group">
-            <button
-              hx-post="/shutdown"
-              class="rtheme-button"
-              data-i18n="cmd_shutdown"
-            >
-              ⏻ Eteindre
-            </button>
-            <button
-              hx-post="/shutdown?reboot=true"
-              class="rtheme-button"
-              data-i18n="cmd_reboot"
-            >
-              ↻ Redémarrer
-            </button>
+            <button hx-post="/shutdown" class="rtheme-button" data-i18n="cmd_shutdown">⏻ Eteindre</button>
+            <button hx-post="/shutdown?reboot=true" class="rtheme-button" data-i18n="cmd_reboot">↻ Redémarrer</button>
           </div>
 
           <hr />
@@ -432,7 +420,6 @@
             </div>
           </div>
           <hr />
-          <div hx-get="/update" hx-trigger="load"></div>
         </section>
       </main>
 

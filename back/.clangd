@@ -1,0 +1,7 @@
+CompileFlags:
+  Add:
+    - -DASIO_STANDALONE
+    - -I/root/retropocket/back/lib
+    - -I/root/retropocket/back/include
+    - -std=gnu++20
+    - -fconcepts-diagnostics-depth=10
