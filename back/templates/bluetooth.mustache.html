@@ -24,6 +24,7 @@
           class="rtheme-button {{connect-class}}"
           hx-put="/bluetooth?mac={{mac}}&action=connect"
           hx-indicator="#indicator"
+          hx-target="closest td"
           data-i18n="bt_btn_connect"
         >
           Connecter
@@ -33,6 +34,7 @@
           class="rtheme-button {{disconnect-class}}"
           hx-put="/bluetooth?mac={{mac}}&action=disconnect"
           hx-indicator="#indicator"
+          hx-target="closest td"
           data-i18n="bt_btn_disconnect"
         >
           Deconnecter
@@ -42,6 +44,7 @@
           class="rtheme-button {{add-class}}"
           hx-post="/bluetooth?mac={{mac}}"
           hx-indicator="#indicator"
+          hx-target="closest td"
           data-i18n="bt_btn_add"
         >
           Ajouter
@@ -51,7 +54,7 @@
           class="rtheme-button {{delete-class}}"
           hx-delete="/bluetooth?mac={{mac}}"
           hx-indicator="#indicator"
-          hx-target="td"
+          hx-target="closest td"
           data-i18n="bt_btn_delete"
         >
           Supprimer
